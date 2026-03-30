@@ -49,7 +49,7 @@ variable "eks_clusteradmin_username" {
 variable "kubernetes_version" {
   description = "(Optional) Kubernetes version to use for the EKS cluster."
   type        = string
-  default     = "1.30"
+  default     = "1.35"
 }
 
 variable "namespace" {
