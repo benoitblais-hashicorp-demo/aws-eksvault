@@ -4,9 +4,7 @@ resource "kubernetes_namespace_v1" "example" {
       name = "example-annotation"
     }
 
-    labels = {
-      mylabel = "example-label"
-    }
+    labels = var.labels
 
     name = var.namespace
   }

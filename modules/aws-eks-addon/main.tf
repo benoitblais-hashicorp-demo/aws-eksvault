@@ -14,8 +14,11 @@ module "eks_blueprints_addons" {
   oidc_provider_arn     = var.oidc_provider_arn
   enable_argo_workflows = false
 
-  # We want to wait for the Fargate profiles to be deployed first
-  #create_delay_dependencies = [for prof in module.eks.fargate_profiles : prof.fargate_profile_arn]
+  # Keep stack-level dependency inputs consumed to preserve ordering semantics.
+  create_delay_dependencies = [
+    var.oidc_binding_id,
+    var.cluster_certificate_authority_data
+  ]
 
   # EKS Add-ons
   eks_addons = {
