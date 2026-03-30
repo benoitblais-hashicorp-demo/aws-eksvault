@@ -163,7 +163,9 @@ component "k8s-namespace-vso" {
 
   inputs = {
     namespace = var.namespace_vso
-    labels    = component.k8s-addons-vso[each.value].eks_addons
+    labels = {
+      addons-count = tostring(length(keys(component.k8s-addons-vso[each.value].eks_addons)))
+    }
   }
 
   providers = {
@@ -179,7 +181,9 @@ component "k8s-namespace-vso-csi" {
 
   inputs = {
     namespace = var.namespace_vso_csi
-    labels    = component.k8s-addons-vso-csi[each.value].eks_addons
+    labels = {
+      addons-count = tostring(length(keys(component.k8s-addons-vso-csi[each.value].eks_addons)))
+    }
   }
 
   providers = {
