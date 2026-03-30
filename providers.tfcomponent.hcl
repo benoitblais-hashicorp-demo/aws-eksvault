@@ -38,6 +38,11 @@ required_providers {
     source = "hashicorp/random"
     version = "~> 3.7.0"
   }
+
+  vault = {
+    source  = "hashicorp/vault"
+    version = "5.8.0"
+  }
 }
 
 provider "aws" "configurations" {
@@ -128,3 +133,11 @@ provider "tls" "this" {}
 provider "local" "this" {}
 
 provider "random" "this" {}
+
+provider "vault" "this" {
+  config {
+    address   = var.vault_address
+    namespace = var.vault_namespace
+    token     = var.vault_token != "" ? var.vault_token : null
+  }
+}

@@ -1,35 +1,3 @@
-variable "aws_identity_token" {
-  description = "(Required) Ephemeral AWS identity token for authentication with AWS services."
-  type        = string
-  ephemeral   = true
-  sensitive   = true
-}
-
-variable "k8s_identity_token" {
-  description = "(Required) Ephemeral Kubernetes identity token for authentication with the Kubernetes cluster."
-  type        = string
-  ephemeral   = true
-  sensitive   = true
-}
-
-variable "role_arn" {
-  description = "(Optional) ARN of the IAM role to assume for AWS operations."
-  type        = string
-  default     = "arn:aws:iam::353671346900:role/tfc-benoitblais-hashicorp"
-}
-
-variable "tfc_organization_name" {
-  description = "(Optional) Name of the Terraform Cloud organization."
-  type        = string
-  default     = "benoitblais-hashicorp"
-}
-
-variable "vpc_cidr" {
-  description = "(Optional) CIDR block for the VPC network."
-  type        = string
-  default     = "10.0.0.0/16"
-}
-
 variable "cluster_name_vso" {
   description = "(Optional) Name of the EKS cluster dedicated to VSO demonstrations."
   type        = string
@@ -54,6 +22,18 @@ variable "create_clusteradmin_role" {
   default     = false
 }
 
+variable "csi_service_account_name" {
+  description = "(Optional) Service account name bound to the Vault role for CSI integration."
+  type        = string
+  default     = "vault-csi-provider"
+}
+
+variable "csi_service_account_namespace" {
+  description = "(Optional) Namespace for the CSI provider service account bound to Vault auth."
+  type        = string
+  default     = "kube-system"
+}
+
 variable "eks_clusteradmin_arn" {
   description = "(Optional) ARN of an existing IAM role or user to grant cluster admin access. Only used if create_clusteradmin_role is false. Leave empty to skip additional admin access."
   type        = string
@@ -64,18 +44,6 @@ variable "eks_clusteradmin_username" {
   description = "(Optional) Username to assign to the existing IAM principal for cluster admin access. Only used if create_clusteradmin_role is false and eks_clusteradmin_arn is provided."
   type        = string
   default     = ""
-}
-
-variable "install_vso" {
-  description = "(Optional) Whether to enable VSO configuration on the VSO demo cluster when vault_address is set."
-  type        = bool
-  default     = true
-}
-
-variable "install_vso_csi" {
-  description = "(Optional) Whether to enable VSO+CSI configuration on the VSO+CSI demo cluster when vault_address is set."
-  type        = bool
-  default     = true
 }
 
 variable "kubernetes_version" {
@@ -108,6 +76,12 @@ variable "regions" {
   default     = ["ca-central-1"]
 }
 
+variable "role_arn" {
+  description = "(Optional) ARN of the IAM role to assume for AWS operations."
+  type        = string
+  default     = "arn:aws:iam::353671346900:role/tfc-benoitblais-hashicorp"
+}
+
 variable "tfc_hostname" {
   description = "(Optional) Hostname of the Terraform Cloud or Terraform Enterprise instance."
   type        = string
@@ -120,14 +94,90 @@ variable "tfc_kubernetes_audience" {
   default     = "k8s.workload.identity"
 }
 
+variable "tfc_organization_name" {
+  description = "(Optional) Name of the Terraform Cloud organization."
+  type        = string
+  default     = "benoitblais-hashicorp"
+}
+
 variable "vault_address" {
   description = "(Optional) Vault address. When set, downstream components can enable Vault integrations."
   type        = string
   default     = ""
 }
 
+variable "vault_kubernetes_auth_path_vso" {
+  description = "(Optional) Base Vault Kubernetes auth mount path used for the VSO cluster."
+  type        = string
+  default     = "kubernetes-vso"
+}
+
+variable "vault_kubernetes_auth_path_vso_csi" {
+  description = "(Optional) Base Vault Kubernetes auth mount path used for the VSO+CSI cluster."
+  type        = string
+  default     = "kubernetes-vso-csi"
+}
+
+variable "vault_kubernetes_token_reviewer_jwt" {
+  description = "(Optional) Token reviewer JWT used by Vault Kubernetes auth backends. When empty, each EKS token is used."
+  type        = string
+  default     = ""
+  sensitive   = true
+}
+
+variable "vault_kv_mount_path" {
+  description = "(Optional) KVv2 mount path used for demo secrets."
+  type        = string
+  default     = "kvv2"
+}
+
+variable "vault_namespace" {
+  description = "(Optional) Vault namespace where Kubernetes auth and policies are configured."
+  type        = string
+  default     = "admin"
+}
+
+variable "vault_secret_path_prefix" {
+  description = "(Optional) Secret path prefix under the KVv2 mount for demo reads."
+  type        = string
+  default     = "demo"
+}
+
+variable "vault_token" {
+  description = "(Optional) Vault token. Leave empty to use dynamic credentials or environment-based authentication."
+  type        = string
+  default     = ""
+  sensitive   = true
+}
+
+variable "vpc_cidr" {
+  description = "(Optional) CIDR block for the VPC network."
+  type        = string
+  default     = "10.0.0.0/16"
+}
+
 variable "vpc_name" {
   description = "(Optional) Name of the VPC to be created."
   type        = string
   default     = "vpc-ca"
+}
+
+variable "vso_service_account_name" {
+  description = "(Optional) Service account name bound to the Vault role for VSO."
+  type        = string
+  default     = "vault-secrets-operator-controller-manager"
+}
+
+variable "aws_identity_token" {
+  description = "(Not Required) Ephemeral AWS identity token managed by the stack deployment identity_token wiring."
+  type        = string
+  ephemeral   = true
+  sensitive   = true
+}
+
+variable "k8s_identity_token" {
+  description = "(Not Required) Ephemeral Kubernetes identity token managed by the stack deployment identity_token wiring."
+  type        = string
+  ephemeral   = true
+  sensitive   = true
 }
