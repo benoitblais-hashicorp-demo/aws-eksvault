@@ -99,17 +99,6 @@ variable "region" {
   }
 }
 
-variable "role_arn" {
-  description = "(Optional) IAM role ARN used by Terraform to administer EKS resources."
-  type        = string
-  default     = ""
-
-  validation {
-    condition     = var.role_arn == "" || can(regex("^arn:aws:iam::[0-9]{12}:role/.+$", var.role_arn))
-    error_message = "The `role_arn` variable must be empty or a valid IAM role ARN."
-  }
-}
-
 variable "tfc_hostname" {
   description = "(Optional) Terraform Cloud or Terraform Enterprise hostname."
   type        = string
