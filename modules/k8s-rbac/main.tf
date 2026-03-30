@@ -1,7 +1,8 @@
 
 # Wait for EKS cluster to be fully ready
 resource "time_sleep" "wait_for_cluster" {
-  create_duration = "30s"
+  # EKS API readiness can precede authz propagation for the caller identity.
+  create_duration = "180s"
 
   # Trigger on cluster endpoint to ensure it exists
   triggers = {
