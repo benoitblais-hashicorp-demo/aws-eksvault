@@ -24,6 +24,7 @@ component "eks_vso" {
     vpc_id             = component.vpc[each.value].vpc_id
     private_subnets    = component.vpc[each.value].private_subnets
     kubernetes_version = var.kubernetes_version
+    role_arn           = var.role_arn
     cluster_name       = var.cluster_name_vso
     tfc_hostname       = var.tfc_hostname
     tfc_kubernetes_audience = var.tfc_kubernetes_audience
@@ -52,6 +53,7 @@ component "eks_vso_csi" {
     vpc_id               = component.vpc[each.value].vpc_id
     private_subnets      = component.vpc[each.value].private_subnets
     kubernetes_version   = var.kubernetes_version
+    role_arn             = var.role_arn
     cluster_name         = var.cluster_name_vso_csi
     tfc_hostname         = var.tfc_hostname
     tfc_kubernetes_audience = var.tfc_kubernetes_audience
