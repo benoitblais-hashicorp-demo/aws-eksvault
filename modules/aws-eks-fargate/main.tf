@@ -92,17 +92,16 @@ module "eks" {
   enable_cluster_creator_admin_permissions = true
 
   access_entries = var.create_clusteradmin_role || var.eks_clusteradmin_arn != "" ? {
-      admin = {
-        kubernetes_groups = []
-        principal_arn     = var.create_clusteradmin_role ? aws_iam_role.eks_clusteradmin[0].arn : var.eks_clusteradmin_arn
-        username          = var.create_clusteradmin_role ? aws_iam_role.eks_clusteradmin[0].name : var.eks_clusteradmin_username
+    admin = {
+      kubernetes_groups = []
+      principal_arn     = var.create_clusteradmin_role ? aws_iam_role.eks_clusteradmin[0].arn : var.eks_clusteradmin_arn
+      username          = var.create_clusteradmin_role ? aws_iam_role.eks_clusteradmin[0].name : var.eks_clusteradmin_username
 
-        policy_associations = {
-          admin = {
-            policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
-            access_scope = {
-              type = "cluster"
-            }
+      policy_associations = {
+        admin = {
+          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+          access_scope = {
+            type = "cluster"
           }
         }
       }
