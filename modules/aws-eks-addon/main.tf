@@ -23,7 +23,7 @@ module "eks_blueprints_addons" {
   # EKS Add-ons
   eks_addons = {
     coredns = {
-      addon_version = "v1.11.1-eksbuild.9"
+      most_recent = true
       configuration_values = jsonencode({
         computeType = "Fargate"
         # Ensure that the we fully utilize the minimum amount of resources that are supplied by
@@ -56,11 +56,11 @@ module "eks_blueprints_addons" {
     }
 
     vpc-cni = {
-      addon_version = "v1.18.3-eksbuild.1"
+      most_recent = true
     }
 
     kube-proxy = {
-      addon_version = "v1.30.0-eksbuild.3"
+      most_recent = true
     }
 
   }
