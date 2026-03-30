@@ -44,7 +44,7 @@ variable "oidc_binding_id" {
   type        = string
 
   validation {
-    condition     = trimspace(var.oidc_binding_id) != ""
+    condition     = trimspace(coalesce(var.oidc_binding_id, "")) != ""
     error_message = "The `oidc_binding_id` variable must not be empty."
   }
 }
