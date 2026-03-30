@@ -1,0 +1,226 @@
+#AWS VPC
+component "vpc" {
+  for_each = var.regions
+
+  source = "./modules/aws-vpc"
+
+  inputs = {
+    vpc_name = var.vpc_name
+    vpc_cidr = var.vpc_cidr
+  }
+
+  providers = {
+    aws     = provider.aws.configurations[each.value]
+  }
+} 
+
+#AWS EKS - VSO lane
+component "eks_vso" {
+  for_each = var.regions
+
+  source = "./modules/aws-eks-fargate"
+
+  inputs = {
+    vpc_id             = component.vpc[each.value].vpc_id
+    private_subnets    = component.vpc[each.value].private_subnets
+    kubernetes_version = var.kubernetes_version
+    cluster_name       = var.cluster_name_vso
+    tfc_hostname       = var.tfc_hostname
+    tfc_kubernetes_audience = var.tfc_kubernetes_audience
+    create_clusteradmin_role = var.create_clusteradmin_role
+    clusteradmin_role_name   = var.clusteradmin_role_name
+    eks_clusteradmin_arn     = var.eks_clusteradmin_arn
+    eks_clusteradmin_username = var.eks_clusteradmin_username
+  }
+
+  providers = {
+    aws        = provider.aws.configurations[each.value]
+    cloudinit  = provider.cloudinit.this
+    kubernetes = provider.kubernetes.this
+    time       = provider.time.this
+    tls        = provider.tls.this
+  }
+}
+
+#AWS EKS - VSO with CSI lane
+component "eks_vso_csi" {
+  for_each = var.regions
+
+  source = "./modules/aws-eks-fargate"
+
+  inputs = {
+    vpc_id               = component.vpc[each.value].vpc_id
+    private_subnets      = component.vpc[each.value].private_subnets
+    kubernetes_version   = var.kubernetes_version
+    cluster_name         = var.cluster_name_vso_csi
+    tfc_hostname         = var.tfc_hostname
+    tfc_kubernetes_audience = var.tfc_kubernetes_audience
+    create_clusteradmin_role = var.create_clusteradmin_role
+    clusteradmin_role_name   = var.clusteradmin_role_name
+    eks_clusteradmin_arn     = var.eks_clusteradmin_arn
+    eks_clusteradmin_username = var.eks_clusteradmin_username
+  }
+
+  providers = {
+    aws        = provider.aws.configurations[each.value]
+    cloudinit  = provider.cloudinit.this
+    kubernetes = provider.kubernetes.this
+    time       = provider.time.this
+    tls        = provider.tls.this
+  }
+}
+
+# Update K8s role-binding - VSO lane
+component "k8s-rbac-vso" {
+  for_each = var.regions
+
+  source = "./modules/k8s-rbac"
+
+  inputs = {
+    cluster_endpoint      = component.eks_vso[each.value].cluster_endpoint
+    tfc_organization_name = var.tfc_organization_name
+  }
+
+  providers = {
+    kubernetes = provider.kubernetes.vso_configurations[each.value]
+    time       = provider.time.this
+  }
+}
+
+# Update K8s role-binding - VSO with CSI lane
+component "k8s-rbac-vso-csi" {
+  for_each = var.regions
+
+  source = "./modules/k8s-rbac"
+
+  inputs = {
+    cluster_endpoint      = component.eks_vso_csi[each.value].cluster_endpoint
+    tfc_organization_name = var.tfc_organization_name
+  }
+
+  providers = {
+    kubernetes = provider.kubernetes.vso_csi_configurations[each.value]
+    time       = provider.time.this
+  }
+}
+
+
+# K8s Addons - VSO lane
+component "k8s-addons-vso" {
+  for_each = var.regions
+
+  source = "./modules/aws-eks-addon"
+
+  inputs = {
+    cluster_name                       = component.eks_vso[each.value].cluster_name
+    vpc_id                             = component.vpc[each.value].vpc_id
+    private_subnets                    = component.vpc[each.value].private_subnets
+    cluster_endpoint                   = component.eks_vso[each.value].cluster_endpoint
+    cluster_version                    = component.eks_vso[each.value].cluster_version
+    oidc_provider_arn                  = component.eks_vso[each.value].oidc_provider_arn
+    cluster_certificate_authority_data = component.eks_vso[each.value].cluster_certificate_authority_data
+    oidc_binding_id                    = component.k8s-rbac-vso[each.value].oidc_binding_id
+  }
+
+  providers = {
+    kubernetes = provider.kubernetes.vso_oidc_configurations[each.value]
+    helm       = provider.helm.vso_oidc_configurations[each.value]
+    aws        = provider.aws.configurations[each.value]
+    time       = provider.time.this
+  }
+}
+
+# K8s Addons - VSO with CSI lane
+component "k8s-addons-vso-csi" {
+  for_each = var.regions
+
+  source = "./modules/aws-eks-addon"
+
+  inputs = {
+    cluster_name                       = component.eks_vso_csi[each.value].cluster_name
+    vpc_id                             = component.vpc[each.value].vpc_id
+    private_subnets                    = component.vpc[each.value].private_subnets
+    cluster_endpoint                   = component.eks_vso_csi[each.value].cluster_endpoint
+    cluster_version                    = component.eks_vso_csi[each.value].cluster_version
+    oidc_provider_arn                  = component.eks_vso_csi[each.value].oidc_provider_arn
+    cluster_certificate_authority_data = component.eks_vso_csi[each.value].cluster_certificate_authority_data
+    oidc_binding_id                    = component.k8s-rbac-vso-csi[each.value].oidc_binding_id
+  }
+
+  providers = {
+    kubernetes = provider.kubernetes.vso_csi_oidc_configurations[each.value]
+    helm       = provider.helm.vso_csi_oidc_configurations[each.value]
+    aws        = provider.aws.configurations[each.value]
+    time       = provider.time.this
+  }
+}
+
+# Namespace - VSO lane
+component "k8s-namespace-vso" {
+  for_each = var.regions
+
+  source = "./modules/k8s-namespace"
+
+  inputs = {
+    namespace = var.namespace_vso
+    labels    = component.k8s-addons-vso[each.value].eks_addons
+  }
+
+  providers = {
+    kubernetes = provider.kubernetes.vso_oidc_configurations[each.value]
+  }
+}
+
+# Namespace - VSO with CSI lane
+component "k8s-namespace-vso-csi" {
+  for_each = var.regions
+
+  source = "./modules/k8s-namespace"
+
+  inputs = {
+    namespace = var.namespace_vso_csi
+    labels    = component.k8s-addons-vso-csi[each.value].eks_addons
+  }
+
+  providers = {
+    kubernetes = provider.kubernetes.vso_csi_oidc_configurations[each.value]
+  }
+}
+
+# Optional Vault integration bootstrap - VSO lane
+component "vault-integration-vso" {
+  for_each = var.vault_address != "" && var.install_vso ? var.regions : toset([])
+
+  source = "./modules/vault-integration-bootstrap"
+
+  inputs = {
+    cluster_name      = component.eks_vso[each.value].cluster_name
+    integration_mode  = "vso"
+    namespace         = var.namespace_vso
+    vault_address     = var.vault_address
+  }
+
+  providers = {
+    kubernetes = provider.kubernetes.vso_oidc_configurations[each.value]
+    helm       = provider.helm.vso_oidc_configurations[each.value]
+  }
+}
+
+# Optional Vault integration bootstrap - VSO with CSI lane
+component "vault-integration-vso-csi" {
+  for_each = var.vault_address != "" && var.install_vso_csi ? var.regions : toset([])
+
+  source = "./modules/vault-integration-bootstrap"
+
+  inputs = {
+    cluster_name     = component.eks_vso_csi[each.value].cluster_name
+    integration_mode = "vso_csi"
+    namespace        = var.namespace_vso_csi
+    vault_address    = var.vault_address
+  }
+
+  providers = {
+    kubernetes = provider.kubernetes.vso_csi_oidc_configurations[each.value]
+    helm       = provider.helm.vso_csi_oidc_configurations[each.value]
+  }
+}

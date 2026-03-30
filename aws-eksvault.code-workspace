@@ -1,0 +1,34 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "files.associations": {
+            "*.tfcomponent.hcl": "hcl",
+            "*.tfdeploy.hcl": "hcl"
+        },
+        "editor.formatOnSave": true,
+        "[terraform]": {
+            "editor.defaultFormatter": "hashicorp.terraform"
+        },
+        "[hcl]": {
+            "editor.defaultFormatter": "hashicorp.terraform"
+        },
+        "files.exclude": {
+            "**/.terraform": true,
+            "**/.terraform/*": true
+        },
+        "search.exclude": {
+            "**/.terraform": true
+        }
+    },
+    "extensions": {
+        "recommendations": [
+            "hashicorp.terraform",
+            "DavidAnson.vscode-markdownlint",
+            "redhat.vscode-yaml"
+        ]
+    }
+}
