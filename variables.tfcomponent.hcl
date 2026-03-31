@@ -186,16 +186,6 @@ variable "vpc_cidr" {
   default     = "10.0.0.0/16"
 }
 
-variable "wiz_scanner_cidrs" {
-  description = "(Optional) Wiz cloud scanner CIDRs allowed to reach the EKS public API endpoint."
-  type        = list(string)
-  default = [
-    "44.219.22.239/32",
-    "54.205.48.237/32",
-    "52.207.181.131/32"
-  ]
-}
-
 variable "vpc_name" {
   description = "(Optional) Name of the VPC to be created."
   type        = string

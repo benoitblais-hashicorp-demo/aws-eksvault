@@ -40,7 +40,6 @@ module "eks" {
   cluster_name                   = var.cluster_name
   cluster_version                = var.kubernetes_version
   cluster_endpoint_public_access = true
-  cluster_endpoint_public_access_cidrs = length(var.wiz_scanner_cidrs) > 0 ? var.wiz_scanner_cidrs : ["0.0.0.0/0"]
 
   vpc_id     = var.vpc_id
   subnet_ids = var.private_subnets
