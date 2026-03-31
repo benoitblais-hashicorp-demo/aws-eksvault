@@ -34,7 +34,7 @@ variable "helm_chart_version" {
 variable "helm_repository" {
   description = "(Optional) Uptycs Helm repository URL."
   type        = string
-  default     = "https://helm.uptycs.io"
+  default     = "https://uptycslabs.github.io/kspm-helm-charts"
 }
 
 variable "namespace" {

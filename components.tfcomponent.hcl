@@ -167,6 +167,7 @@ component "k8s-edr-vso" {
     helm_repository         = var.edr_helm_repository
     helm_chart              = var.edr_helm_chart
     helm_chart_version      = var.edr_helm_chart_version
+    additional_values_yaml  = var.edr_k8sosquery_values_yaml != "" ? [var.edr_k8sosquery_values_yaml] : []
     uptycs_tags             = var.edr_uptycs_tags
     cluster_readiness_token = component.k8s-rbac-vso[each.value].oidc_binding_id
     addons_dependency_token = tostring(length(keys(component.k8s-addons-vso[each.value].eks_addons)))
@@ -190,6 +191,7 @@ component "k8s-edr-vso-csi" {
     helm_repository         = var.edr_helm_repository
     helm_chart              = var.edr_helm_chart
     helm_chart_version      = var.edr_helm_chart_version
+    additional_values_yaml  = var.edr_k8sosquery_values_yaml != "" ? [var.edr_k8sosquery_values_yaml] : []
     uptycs_tags             = var.edr_uptycs_tags
     cluster_readiness_token = component.k8s-rbac-vso-csi[each.value].oidc_binding_id
     addons_dependency_token = tostring(length(keys(component.k8s-addons-vso-csi[each.value].eks_addons)))

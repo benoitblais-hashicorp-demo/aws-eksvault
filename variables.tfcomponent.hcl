@@ -49,7 +49,14 @@ variable "edr_helm_chart_version" {
 variable "edr_helm_repository" {
   description = "(Optional) Uptycs EDR Helm repository URL for Kubernetes installation."
   type        = string
-  default     = "https://helm.uptycs.io"
+  default     = "https://uptycslabs.github.io/kspm-helm-charts"
+}
+
+variable "edr_k8sosquery_values_yaml" {
+  description = "(Optional) Raw YAML content of the downloaded k8sosquery values file. Keep empty to use only module defaults."
+  type        = string
+  default     = ""
+  sensitive   = true
 }
 
 variable "edr_namespace" {
