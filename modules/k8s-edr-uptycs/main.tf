@@ -1,6 +1,6 @@
 locals {
   labels = {
-    "app.kubernetes.io/managed-by" = "terraform"
+    "app.kubernetes.io/managed-by"   = "terraform"
     "security.hashicorp.com/cluster" = var.cluster_name
     # Consume dependency tokens to guarantee execution ordering in the stack graph.
     "security.hashicorp.com/addons" = var.addons_dependency_token
