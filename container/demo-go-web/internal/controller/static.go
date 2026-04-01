@@ -4,7 +4,7 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/hashicorp/demo-vault-secrets-operator/internal/tools"
+	"github.com/benoitblais-hashicorp-demo/aws-eksvault/container/demo-go-web/internal/tools"
 )
 
 func GetStaticPage(c *gin.Context) {

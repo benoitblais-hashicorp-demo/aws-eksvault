@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/hashicorp/demo-vault-secrets-operator/internal/app"
-	"github.com/hashicorp/demo-vault-secrets-operator/internal/controller"
+	"github.com/benoitblais-hashicorp-demo/aws-eksvault/container/demo-go-web/internal/app"
+	"github.com/benoitblais-hashicorp-demo/aws-eksvault/container/demo-go-web/internal/controller"
 )
 
 func main() {
