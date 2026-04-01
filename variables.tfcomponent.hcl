@@ -119,12 +119,6 @@ variable "regions" {
   default     = ["ca-central-1"]
 }
 
-variable "role_arn" {
-  description = "(Optional) ARN of the IAM role to assume for AWS operations."
-  type        = string
-  default     = "arn:aws:iam::353671346900:role/tfc-benoitblais-hashicorp"
-}
-
 variable "tfc_hostname" {
   description = "(Optional) Hostname of the Terraform Cloud or Terraform Enterprise instance."
   type        = string
@@ -146,7 +140,7 @@ variable "tfc_organization_name" {
 variable "vault_address" {
   description = "(Optional) Vault address. When set, downstream components can enable Vault integrations."
   type        = string
-  default     = ""
+  default     = "https://vault-cluster-public-vault-642ba184.ade9d519.z1.hashicorp.cloud:8200"
 }
 
 variable "vault_kubernetes_auth_path_vso" {
@@ -177,7 +171,7 @@ variable "vault_kv_mount_path" {
 variable "vault_namespace" {
   description = "(Optional) Vault namespace where Kubernetes auth and policies are configured."
   type        = string
-  default     = "admin"
+  default     = "admin/kubernetes-demo"
 }
 
 variable "vault_secret_path_prefix" {
@@ -204,15 +198,20 @@ variable "vso_service_account_name" {
   default     = "vault-secrets-operator-controller-manager"
 }
 
-variable "aws_identity_token" {
-  description = "(Not Required) Ephemeral AWS identity token managed by the stack deployment identity_token wiring."
+variable "k8s_identity_token" {
+  description = "(Not Required) Ephemeral Kubernetes identity token managed by the stack deployment identity_token wiring."
   type        = string
   ephemeral   = true
   sensitive   = true
 }
 
-variable "k8s_identity_token" {
-  description = "(Not Required) Ephemeral Kubernetes identity token managed by the stack deployment identity_token wiring."
+variable "role_arn" {
+  description = "(Required) ARN of the IAM role to assume for AWS operations"
+  type        = string
+}
+
+variable "aws_identity_token" {
+  description = "(Required) Ephemeral AWS identity token for authentication with AWS services."
   type        = string
   ephemeral   = true
   sensitive   = true
