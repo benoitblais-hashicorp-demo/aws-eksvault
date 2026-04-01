@@ -35,9 +35,9 @@ variable "csi_service_account_namespace" {
 }
 
 variable "demo_webapp_image" {
-  description = "(Optional) Container image used by the VSO static-secret demo web application. Leave empty to skip provisioning the demo pod."
+  description = "(Optional) Container image used by the VSO static-secret demo web application. Set to an empty string to skip provisioning the demo pod."
   type        = string
-  default     = ""
+  default     = "ghcr.io/benoitblais-hashicorp-demo/demo-go-web:v1.1.0"
 }
 
 variable "edr_helm_chart" {
