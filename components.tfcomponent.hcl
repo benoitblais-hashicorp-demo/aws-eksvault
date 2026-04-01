@@ -344,12 +344,13 @@ component "vault-config-vso-csi" {
 
 # Optional VSO static-secret demo webpage - VSO lane
 component "k8s-demo-app-vso" {
-  for_each = var.vault_address != "" ? var.regions : toset([])
+  for_each = var.vault_address != "" && var.demo_webapp_image != "" ? var.regions : toset([])
 
   source = "./modules/k8s-demo-app"
 
   inputs = {
     app_namespace          = component.vault-integration-vso[each.value].namespace
+    demo_app_image         = var.demo_webapp_image
     vault_address          = var.vault_address
     vault_auth_path        = component.vault-config-vso[each.value].auth_path
     vault_auth_role        = component.vault-config-vso[each.value].vso_role_name

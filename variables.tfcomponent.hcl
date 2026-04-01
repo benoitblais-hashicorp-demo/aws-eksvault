@@ -34,6 +34,12 @@ variable "csi_service_account_namespace" {
   default     = "kube-system"
 }
 
+variable "demo_webapp_image" {
+  description = "(Optional) Container image used by the VSO static-secret demo web application. Leave empty to skip provisioning the demo pod."
+  type        = string
+  default     = ""
+}
+
 variable "edr_helm_chart" {
   description = "(Optional) Uptycs EDR Helm chart name for Kubernetes installation."
   type        = string

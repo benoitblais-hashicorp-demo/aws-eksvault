@@ -88,6 +88,12 @@ Description: (Required) Namespace where the demo application is deployed.
 
 Type: `string`
 
+### <a name="input_demo_app_image"></a> [demo\_app\_image](#input\_demo\_app\_image)
+
+Description: (Required) Container image for the demo web application.
+
+Type: `string`
+
 ### <a name="input_vault_address"></a> [vault\_address](#input\_vault\_address)
 
 Description: (Required) Vault address used by the VaultConnection custom resource.

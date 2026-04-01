@@ -116,7 +116,7 @@ resource "kubernetes_deployment" "static_app" {
 
       spec {
         container {
-          image = "drum0r/demo-go-web:v1.1.0"
+          image = var.demo_app_image
           name  = local.static_app_name
 
           port {

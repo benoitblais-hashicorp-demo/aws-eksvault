@@ -8,6 +8,11 @@ variable "app_namespace" {
   }
 }
 
+variable "demo_app_image" {
+  description = "(Required) Container image for the demo web application."
+  type        = string
+}
+
 variable "initial_image_url" {
   description = "(Optional) Initial image URL stored in Vault and rendered by the demo webpage."
   type        = string
