@@ -21,6 +21,8 @@ resource "vault_kv_secret_v2" "webapp" {
 }
 
 resource "kubernetes_manifest" "vault_connection" {
+  validate_schema = false
+
   manifest = {
     apiVersion = "secrets.hashicorp.com/v1beta1"
     kind       = "VaultConnection"
@@ -35,6 +37,8 @@ resource "kubernetes_manifest" "vault_connection" {
 }
 
 resource "kubernetes_manifest" "vault_auth" {
+  validate_schema = false
+
   depends_on = [kubernetes_manifest.vault_connection]
 
   manifest = {
@@ -58,6 +62,8 @@ resource "kubernetes_manifest" "vault_auth" {
 }
 
 resource "kubernetes_manifest" "vault_static_secret" {
+  validate_schema = false
+
   depends_on = [
     kubernetes_manifest.vault_auth,
     vault_kv_secret_v2.webapp,
