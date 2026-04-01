@@ -1,4 +1,4 @@
-module github.com/hashicorp/demo-vault-secrets-operator
+module github.com/benoitblais-hashicorp-demo/aws-eksvault/container/demo-go-web
 
 go 1.23.0
 

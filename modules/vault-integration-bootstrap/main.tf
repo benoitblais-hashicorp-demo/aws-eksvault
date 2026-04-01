@@ -31,8 +31,13 @@ resource "helm_release" "vault_secrets_operator" {
   chart            = "vault-secrets-operator"
   namespace        = kubernetes_namespace_v1.vault_integration.metadata[0].name
   create_namespace = false
+  skip_crds        = false
   wait             = true
   timeout          = 600
+
+  values = [yamlencode({
+    installCRDs = true
+  })]
 }
 
 resource "helm_release" "secrets_store_csi_driver" {

@@ -20,78 +20,44 @@ resource "vault_kv_secret_v2" "webapp" {
   }
 }
 
-resource "kubernetes_manifest" "vault_connection" {
-  manifest = {
-    apiVersion = "secrets.hashicorp.com/v1beta1"
-    kind       = "VaultConnection"
-    metadata = {
-      name      = "default"
-      namespace = var.app_namespace
-    }
-    spec = {
-      address = var.vault_address
-    }
+resource "time_sleep" "wait_for_vso_crd_registration" {
+  # VSO CRDs can take extra time to be discoverable by the API server after Helm install.
+  create_duration = "45s"
+
+  triggers = {
+    integration_dependency_token = var.integration_dependency_token
+    app_namespace                = var.app_namespace
   }
 }
 
-resource "kubernetes_manifest" "vault_auth" {
-  depends_on = [kubernetes_manifest.vault_connection]
+resource "helm_release" "vso_custom_resources" {
+  depends_on = [time_sleep.wait_for_vso_crd_registration]
 
-  manifest = {
-    apiVersion = "secrets.hashicorp.com/v1beta1"
-    kind       = "VaultAuth"
-    metadata = {
-      name      = "default"
-      namespace = var.app_namespace
-    }
-    spec = {
-      method             = "kubernetes"
-      mount              = var.vault_auth_path
-      vaultConnectionRef = "default"
-      kubernetes = {
-        role           = var.vault_auth_role
-        serviceAccount = var.vso_service_account_name
-        audiences      = ["vault"]
-      }
-    }
-  }
-}
+  name             = "vso-custom-resources"
+  chart            = "${path.module}/charts/vso-custom-resources"
+  namespace        = var.app_namespace
+  create_namespace = false
+  wait             = true
+  timeout          = 600
 
-resource "kubernetes_manifest" "vault_static_secret" {
-  depends_on = [
-    kubernetes_manifest.vault_auth,
-    vault_kv_secret_v2.webapp,
-  ]
-
-  manifest = {
-    apiVersion = "secrets.hashicorp.com/v1beta1"
-    kind       = "VaultStaticSecret"
-    metadata = {
-      name      = "vault-static-secret"
-      namespace = var.app_namespace
-    }
-    spec = {
-      type  = "kv-v2"
-      mount = var.vault_kv_mount_path
-      path  = local.static_app_secret_key
-      destination = {
-        name   = local.static_app_secret
-        create = true
-      }
-      refreshAfter = "5s"
-      vaultAuthRef = "default"
-      rolloutRestartTargets = [
-        {
-          kind = "Deployment"
-          name = local.static_app_name
-        }
-      ]
-    }
-  }
+  values = [yamlencode({
+    app_namespace            = var.app_namespace
+    vault_address            = var.vault_address
+    vault_auth_path          = var.vault_auth_path
+    vault_auth_role          = var.vault_auth_role
+    vso_service_account_name = var.vso_service_account_name
+    vault_kv_mount_path      = var.vault_kv_mount_path
+    static_app_secret_key    = local.static_app_secret_key
+    static_app_secret_name   = local.static_app_secret
+    static_app_name          = local.static_app_name
+  })]
 }
 
 resource "kubernetes_deployment" "static_app" {
-  depends_on = [kubernetes_manifest.vault_static_secret]
+  depends_on = [
+    helm_release.vso_custom_resources,
+    vault_kv_secret_v2.webapp,
+  ]
 
   metadata {
     name      = local.static_app_name

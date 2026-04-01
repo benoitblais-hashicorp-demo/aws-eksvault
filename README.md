@@ -1,3 +1,11 @@
+# AWS-EKSVault
+
+<!-- Trigger commit: no functional changes -->
+
+Terraform Stacks code to provision AWS infrastructure for two EKS-based Vault integration demos:
+
+- A VSO-focused EKS cluster
+- A VSO with CSI-focused EKS cluster
 # aws-eksvault
 
 Terraform Stacks code to provision AWS infrastructure for two EKS-based Vault integration demos:

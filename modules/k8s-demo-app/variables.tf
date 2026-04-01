@@ -25,6 +25,12 @@ variable "initial_message" {
   default     = "Secret synced from Vault through VSO."
 }
 
+variable "integration_dependency_token" {
+  description = "(Optional) Opaque dependency token from the VSO integration bootstrap release used to enforce ordering."
+  type        = string
+  default     = ""
+}
+
 variable "vault_address" {
   description = "(Required) Vault address used by the VaultConnection custom resource."
   type        = string
