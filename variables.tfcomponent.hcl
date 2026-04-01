@@ -98,7 +98,7 @@ variable "kubernetes_version" {
 variable "namespace" {
   description = "(Optional) Kubernetes namespace for application deployment."
   type        = string
-  default     = "hashibank"
+  default     = "app"
 }
 
 variable "namespace_vso" {
