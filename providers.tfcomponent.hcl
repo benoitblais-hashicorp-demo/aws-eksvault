@@ -50,11 +50,6 @@ provider "aws" "configurations" {
 
   config {
     region = each.value
-
-    assume_role_with_web_identity {
-      role_arn           = var.role_arn
-      web_identity_token = var.aws_identity_token
-    }
   }
 }
 
@@ -134,9 +129,4 @@ provider "local" "this" {}
 
 provider "random" "this" {}
 
-provider "vault" "this" {
-  config {
-    address   = var.vault_address
-    namespace = var.vault_namespace
-  }
-}
+provider "vault" "this" {}
