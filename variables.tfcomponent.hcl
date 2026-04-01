@@ -186,13 +186,6 @@ variable "vault_secret_path_prefix" {
   default     = "demo"
 }
 
-variable "vault_token" {
-  description = "(Optional) Vault token. Leave empty to use dynamic credentials or environment-based authentication."
-  type        = string
-  default     = ""
-  sensitive   = true
-}
-
 variable "vpc_cidr" {
   description = "(Optional) CIDR block for the VPC network."
   type        = string

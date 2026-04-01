@@ -138,6 +138,5 @@ provider "vault" "this" {
   config {
     address   = var.vault_address
     namespace = var.vault_namespace
-    token     = var.vault_token != "" ? var.vault_token : null
   }
 }
