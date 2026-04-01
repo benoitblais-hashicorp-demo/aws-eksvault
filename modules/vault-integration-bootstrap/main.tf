@@ -35,12 +35,10 @@ resource "helm_release" "vault_secrets_operator" {
   wait             = true
   timeout          = 600
 
-  set = [
-    {
-      name  = "installCRDs"
-      value = "true"
-    }
-  ]
+  set {
+    name  = "installCRDs"
+    value = "true"
+  }
 }
 
 resource "helm_release" "secrets_store_csi_driver" {
