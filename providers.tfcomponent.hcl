@@ -138,5 +138,11 @@ provider "vault" "this" {
   config {
     address   = var.vault_address
     namespace = var.vault_namespace
+    
+    auth_login_jwt {
+      mount = var.vault_provider_auth_path
+      role  = var.vault_run_role
+      jwt   = var.vault_identity_token
+    }
   }
 }

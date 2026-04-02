@@ -204,6 +204,18 @@ variable "vso_service_account_name" {
   default     = "vault-secrets-operator-controller-manager"
 }
 
+variable "vault_provider_auth_path" {
+  description = "(Optional) The path where the JWT auth backend is mounted for Terraform Stacks."
+  type        = string
+  default     = "jwt_hcp"
+}
+
+variable "vault_run_role" {
+  description = "(Optional) The Vault role name configured for Terraform Stacks OIDC."
+  type        = string
+  default     = "jwt_hcp_role"
+}
+
 variable "aws_identity_token" {
   description = "(Not Required) Ephemeral AWS identity token managed by the stack deployment identity_token wiring."
   type        = string
@@ -213,6 +225,13 @@ variable "aws_identity_token" {
 
 variable "k8s_identity_token" {
   description = "(Not Required) Ephemeral Kubernetes identity token managed by the stack deployment identity_token wiring."
+  type        = string
+  ephemeral   = true
+  sensitive   = true
+}
+
+variable "vault_identity_token" {
+  description = "(Not Required) Ephemeral Vault identity token managed by the stack deployment identity_token wiring."
   type        = string
   ephemeral   = true
   sensitive   = true
