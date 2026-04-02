@@ -80,7 +80,7 @@ variable "edr_uptycs_tags" {
 variable "eks_clusteradmin_arn" {
   description = "(Optional) ARN of an existing IAM role or user to grant cluster admin access. Only used if create_clusteradmin_role is false. Leave empty to skip additional admin access."
   type        = string
-  default     = ""
+  default     = "arn:aws:iam::353671346900:role/aws_benoit.blais_test-developer"
 }
 
 variable "eks_clusteradmin_username" {
