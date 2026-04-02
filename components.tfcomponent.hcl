@@ -203,8 +203,6 @@ component "k8s-edr-vso-csi" {
   }
 }
 
-/* TEMPORARILY DISABLED TO FIX NAMESPACE ISSUE
-
 # Namespace - VSO lane
 component "k8s-namespace-vso" {
   for_each = var.regions
@@ -395,4 +393,3 @@ component "k8s-demo-app-vso-csi" {
     vault      = provider.vault.this
   }
 }
-*/
