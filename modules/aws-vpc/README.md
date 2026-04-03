@@ -62,7 +62,7 @@ The following Modules are called:
 
 Source: terraform-aws-modules/vpc/aws
 
-Version: 5.0
+Version: ~> 6.0
 
 ## Resources
 

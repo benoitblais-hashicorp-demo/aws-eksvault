@@ -1,1 +1,1 @@
-# Provider configuration is supplied by the caller.
+provider "aws" {}
