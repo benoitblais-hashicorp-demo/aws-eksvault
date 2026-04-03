@@ -14,61 +14,61 @@ component "vpc" {
 
 } 
 
-# #AWS EKS - VSO lane
-# component "eks_vso" {
+#AWS EKS - VSO lane
+component "eks_vso" {
 
-#   source = "./modules/aws-eks-fargate"
+  source = "./modules/aws-eks-fargate"
 
-#   inputs = {
-#     cluster_name              = var.cluster_name_vso
-#     vpc_id                    = component.vpc.vpc_id
-#     private_subnets           = component.vpc.private_subnets
-#     kubernetes_version        = var.kubernetes_version
-#     tfc_hostname              = var.tfc_hostname
-#     tfc_kubernetes_audience   = var.tfc_kubernetes_audience
-#     create_clusteradmin_role  = var.create_clusteradmin_role
-#     clusteradmin_role_name    = var.clusteradmin_role_name
-#     eks_clusteradmin_arn      = var.eks_clusteradmin_arn
-#     eks_clusteradmin_username = var.eks_clusteradmin_username
-#   }
+  inputs = {
+    cluster_name              = var.cluster_name_vso
+    vpc_id                    = component.vpc.vpc_id
+    private_subnets           = component.vpc.private_subnets
+    kubernetes_version        = var.kubernetes_version
+    tfc_hostname              = var.tfc_hostname
+    tfc_kubernetes_audience   = var.tfc_kubernetes_audience
+    create_clusteradmin_role  = var.create_clusteradmin_role
+    clusteradmin_role_name    = var.clusteradmin_role_name
+    eks_clusteradmin_arn      = var.eks_clusteradmin_arn
+    eks_clusteradmin_username = var.eks_clusteradmin_username
+  }
 
-#   providers = {
-#     aws        = provider.aws.configurations
-#     cloudinit  = provider.cloudinit.this
-#     kubernetes = provider.kubernetes.this
-#     time       = provider.time.this
-#     tls        = provider.tls.this
-#   }
+  providers = {
+    aws        = provider.aws.configurations
+    cloudinit  = provider.cloudinit.this
+    kubernetes = provider.kubernetes.this
+    time       = provider.time.this
+    tls        = provider.tls.this
+  }
 
-# }
+}
 
-# #AWS EKS - VSO with CSI lane
-# component "eks_vso_csi" {
+#AWS EKS - VSO with CSI lane
+component "eks_vso_csi" {
 
-#   source = "./modules/aws-eks-fargate"
+  source = "./modules/aws-eks-fargate"
 
-#   inputs = {
-#     cluster_name              = var.cluster_name_vso_csi
-#     vpc_id                    = component.vpc.vpc_id
-#     private_subnets           = component.vpc.private_subnets
-#     kubernetes_version        = var.kubernetes_version
-#     tfc_hostname              = var.tfc_hostname
-#     tfc_kubernetes_audience   = var.tfc_kubernetes_audience
-#     create_clusteradmin_role  = var.create_clusteradmin_role
-#     clusteradmin_role_name    = var.clusteradmin_role_name
-#     eks_clusteradmin_arn      = var.eks_clusteradmin_arn
-#     eks_clusteradmin_username = var.eks_clusteradmin_username
-#   }
+  inputs = {
+    cluster_name              = var.cluster_name_vso_csi
+    vpc_id                    = component.vpc.vpc_id
+    private_subnets           = component.vpc.private_subnets
+    kubernetes_version        = var.kubernetes_version
+    tfc_hostname              = var.tfc_hostname
+    tfc_kubernetes_audience   = var.tfc_kubernetes_audience
+    create_clusteradmin_role  = var.create_clusteradmin_role
+    clusteradmin_role_name    = var.clusteradmin_role_name
+    eks_clusteradmin_arn      = var.eks_clusteradmin_arn
+    eks_clusteradmin_username = var.eks_clusteradmin_username
+  }
 
-#   providers = {
-#     aws        = provider.aws.configurations
-#     cloudinit  = provider.cloudinit.this
-#     kubernetes = provider.kubernetes.this
-#     time       = provider.time.this
-#     tls        = provider.tls.this
-#   }
+  providers = {
+    aws        = provider.aws.configurations
+    cloudinit  = provider.cloudinit.this
+    kubernetes = provider.kubernetes.this
+    time       = provider.time.this
+    tls        = provider.tls.this
+  }
 
-# }
+}
 
 # # Update K8s role-binding - VSO lane
 # component "k8s-rbac-vso" {
