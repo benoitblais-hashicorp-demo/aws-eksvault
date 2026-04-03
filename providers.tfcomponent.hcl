@@ -55,6 +55,7 @@ provider "aws" "configurations" {
     }
   }
 }
+/*
 
 provider "kubernetes" "vso_configurations" {
   config { 
@@ -106,8 +107,9 @@ provider "helm" "vso_csi_oidc_configurations" {
       token                  = var.k8s_identity_token
     }
   }
-}
 
+}
+*/
 provider "cloudinit" "this" {}
 
 provider "kubernetes" "this" {}
