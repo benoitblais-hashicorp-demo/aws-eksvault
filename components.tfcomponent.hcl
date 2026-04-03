@@ -72,39 +72,39 @@ component "eks_vso_csi" {
 
 }
 
-# # Update K8s role-binding - VSO lane
-# component "k8s-rbac-vso" {
-  
+# Update K8s role-binding - VSO lane
+component "k8s-rbac-vso" {
 
-#   source = "./modules/k8s-rbac"
+  source = "./modules/k8s-rbac"
 
-#   inputs = {
-#     cluster_endpoint      = component.eks_vso.cluster_endpoint
-#     tfc_organization_name = var.tfc_organization_name
-#   }
+  inputs = {
+    cluster_endpoint      = component.eks_vso.cluster_endpoint
+    tfc_organization_name = var.tfc_organization_name
+  }
 
-#   providers = {
-#     kubernetes = provider.kubernetes.vso_configurations
-#     time       = provider.time.this
-#   }
-# }
+  providers = {
+    kubernetes = provider.kubernetes.vso_configurations
+    time       = provider.time.this
+  }
 
-# # Update K8s role-binding - VSO with CSI lane
-# component "k8s-rbac-vso-csi" {
-  
+}
 
-#   source = "./modules/k8s-rbac"
+# Update K8s role-binding - VSO with CSI lane
+component "k8s-rbac-vso-csi" {
 
-#   inputs = {
-#     cluster_endpoint      = component.eks_vso_csi.cluster_endpoint
-#     tfc_organization_name = var.tfc_organization_name
-#   }
+  source = "./modules/k8s-rbac"
 
-#   providers = {
-#     kubernetes = provider.kubernetes.vso_csi_configurations
-#     time       = provider.time.this
-#   }
-# }
+  inputs = {
+    cluster_endpoint      = component.eks_vso_csi.cluster_endpoint
+    tfc_organization_name = var.tfc_organization_name
+  }
+
+  providers = {
+    kubernetes = provider.kubernetes.vso_csi_configurations
+    time       = provider.time.this
+  }
+
+}
 
 
 # # K8s Addons - VSO lane

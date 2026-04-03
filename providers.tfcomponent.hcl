@@ -60,7 +60,6 @@ provider "aws" "configurations" {
     }
   }
 }
-/*
 
 provider "kubernetes" "vso_configurations" {
   config { 
@@ -77,7 +76,7 @@ provider "kubernetes" "vso_csi_configurations" {
     token                  = component.eks_vso_csi.eks_token
   }
 }
-
+/*
 provider "kubernetes" "vso_oidc_configurations" {
   config {
     host                   = component.eks_vso.cluster_endpoint
