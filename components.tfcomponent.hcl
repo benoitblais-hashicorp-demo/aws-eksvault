@@ -345,6 +345,42 @@ component "k8s-edr-vso-csi" {
 #   }
 # }
 
+# # App Namespace - VSO lane
+# component "k8s-namespace-app-vso" {
+  
+#   source = "./modules/k8s-namespace"
+
+#   inputs = {
+#     # You can add a var.app_namespace to variables.tfcomponent.hcl
+#     namespace = "demo-app" 
+#     labels = {
+#       addons-count = tostring(length(keys(component.k8s-addons-vso.eks_addons)))
+#     }
+#   }
+
+#   providers = {
+#     kubernetes = provider.kubernetes.vso_oidc_configurations
+#   }
+# }
+
+# # App Namespace - VSO with CSI lane
+# component "k8s-namespace-app-vso-csi" {
+  
+#   source = "./modules/k8s-namespace"
+
+#   inputs = {
+#     # You can add a var.app_namespace to variables.tfcomponent.hcl
+#     namespace = "demo-app"
+#     labels = {
+#       addons-count = tostring(length(keys(component.k8s-addons-vso-csi.eks_addons)))
+#     }
+#   }
+
+#   providers = {
+#     kubernetes = provider.kubernetes.vso_csi_oidc_configurations
+#   }
+# }
+
 # # Optional VSO static-secret demo webpage - VSO lane
 # component "k8s-demo-app-vso" {
 #   for_each = var.vault_address != "" && var.demo_webapp_image != "" ? toset(["enabled"]) : toset([])
@@ -352,7 +388,7 @@ component "k8s-edr-vso-csi" {
 #   source = "./modules/k8s-demo-app"
 
 #   inputs = {
-#     app_namespace          = component.vault-integration-vso.namespace
+#     app_namespace                = component.k8s-namespace-app-vso.namespace
 #     integration_dependency_token = component.vault-integration-vso.vso_release_revision
 #     demo_app_image         = var.demo_webapp_image
 #     vault_address          = var.vault_address
@@ -378,7 +414,7 @@ component "k8s-edr-vso-csi" {
 #   source = "./modules/k8s-demo-app"
 
 #   inputs = {
-#     app_namespace            = component.vault-integration-vso-csi.namespace
+#     app_namespace = component.k8s-namespace-app-vso-csi.namespace
 #     integration_dependency_token = component.vault-integration-vso-csi.vso_release_revision
 #     demo_app_image           = var.demo_webapp_image
 #     vault_address            = var.vault_address
