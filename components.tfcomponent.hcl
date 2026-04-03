@@ -127,6 +127,7 @@ component "k8s-addons-vso" {
     helm       = provider.helm.vso_oidc_configurations
     aws        = provider.aws.configurations
     time       = provider.time.this
+    random     = provider.random.this
   }
 
 }
@@ -152,6 +153,7 @@ component "k8s-addons-vso-csi" {
     helm       = provider.helm.vso_csi_oidc_configurations
     aws        = provider.aws.configurations
     time       = provider.time.this
+    random     = provider.random.this
   }
 
 }
