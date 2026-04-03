@@ -1,11 +1,12 @@
-# This file is maintained automatically by "terraform init".
+# This file is maintained automatically by "terraform stacks providers-lock".
 # Manual edits may be lost in future updates.
 
 provider "registry.terraform.io/hashicorp/aws" {
-  version     = "6.39.0"
-  constraints = ">= 6.28.0, ~> 6.28"
+  version = "6.39.0"
   hashes = [
+    "h1:2VV7im+l1aTGOdEtkbojBTxma4yG2ctsjpIt6mC4mXU=",
     "h1:QwtlSBjpxlw3Almi8cMWWlTkRj1Od5jBBEFYR+8XXcs=",
+    "h1:jweey4Iefm/DuuBg84saQ8vz5IO3vC6hDFTU/eGdmBI=",
     "zh:00c3e3c38063ff629d6fdbce04e9ac2e241566e0f5ad5399c335f0abdefd7bff",
     "zh:148f95b62791080537d926b9d2f5d8457cca45921d9b1019d03ceb3ab93bf9db",
     "zh:203da629ed5191dd5d7aa3427a5d1d1a83eed5c1b0114166897206973f0d0fd0",
@@ -198,4 +199,3 @@ provider "registry.terraform.io/hashicorp/vault" {
     "zh:f8d97c753305077ddcbd9e60780c5b06b173de2127943b9590d7e8decda4bd7a",
   ]
 }
-
