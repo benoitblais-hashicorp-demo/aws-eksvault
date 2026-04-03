@@ -38,6 +38,7 @@ variable "vault_address" {
   }
 }
 
+# tflint-ignore: terraform_unused_declarations
 variable "cluster_readiness_token" {
   description = "(Optional) A dummy token used to explicitly order component execution (e.g. forcing wait for RBAC)."
   type        = string
