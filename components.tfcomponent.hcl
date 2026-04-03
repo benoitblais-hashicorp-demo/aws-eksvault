@@ -160,7 +160,6 @@ component "k8s-addons-vso-csi" {
 
 # # Uptycs EDR - VSO lane
 # component "k8s-edr-vso" {
-  
 
 #   source = "./modules/k8s-edr-uptycs"
 
@@ -184,7 +183,6 @@ component "k8s-addons-vso-csi" {
 
 # # Uptycs EDR - VSO with CSI lane
 # component "k8s-edr-vso-csi" {
-  
 
 #   source = "./modules/k8s-edr-uptycs"
 
