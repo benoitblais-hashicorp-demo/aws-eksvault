@@ -208,7 +208,6 @@ component "k8s-edr-vso-csi" {
 
 # # Namespace - VSO lane
 # component "k8s-namespace-vso" {
-  
 
 #   source = "./modules/k8s-namespace"
 
@@ -226,7 +225,6 @@ component "k8s-edr-vso-csi" {
 
 # # Namespace - VSO with CSI lane
 # component "k8s-namespace-vso-csi" {
-  
 
 #   source = "./modules/k8s-namespace"
 
