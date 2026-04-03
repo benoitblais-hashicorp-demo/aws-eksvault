@@ -37,9 +37,9 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 21.0"
 
-  name                           = var.cluster_name
-  kubernetes_version             = var.kubernetes_version
-  endpoint_public_access         = true
+  name                   = var.cluster_name
+  kubernetes_version     = var.kubernetes_version
+  endpoint_public_access = true
 
   vpc_id     = var.vpc_id
   subnet_ids = var.private_subnets
@@ -47,10 +47,10 @@ module "eks" {
   enable_irsa = true
 
   # Fargate profiles use the cluster primary security group so these are not utilized
-  create_security_group         = false
-  create_node_security_group    = false
+  create_security_group      = false
+  create_node_security_group = false
 
-  enabled_log_types         = [] #disabling logs for cost - lab only
+  enabled_log_types = [] #disabling logs for cost - lab only
 
   fargate_profiles = {
     app_wildcard = {
