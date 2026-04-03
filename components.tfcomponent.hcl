@@ -106,56 +106,55 @@ component "k8s-rbac-vso-csi" {
 
 }
 
+# K8s Addons - VSO lane
+component "k8s-addons-vso" {
 
-# # K8s Addons - VSO lane
-# component "k8s-addons-vso" {
-  
+  source = "./modules/aws-eks-addon"
 
-#   source = "./modules/aws-eks-addon"
+  inputs = {
+    cluster_name                       = component.eks_vso.cluster_name
+    vpc_id                             = component.vpc.vpc_id
+    private_subnets                    = component.vpc.private_subnets
+    cluster_endpoint                   = component.eks_vso.cluster_endpoint
+    cluster_version                    = component.eks_vso.cluster_version
+    oidc_provider_arn                  = component.eks_vso.oidc_provider_arn
+    cluster_certificate_authority_data = component.eks_vso.cluster_certificate_authority_data
+    oidc_binding_id                    = component.k8s-rbac-vso.oidc_binding_id
+  }
 
-#   inputs = {
-#     cluster_name                       = component.eks_vso.cluster_name
-#     vpc_id                             = component.vpc.vpc_id
-#     private_subnets                    = component.vpc.private_subnets
-#     cluster_endpoint                   = component.eks_vso.cluster_endpoint
-#     cluster_version                    = component.eks_vso.cluster_version
-#     oidc_provider_arn                  = component.eks_vso.oidc_provider_arn
-#     cluster_certificate_authority_data = component.eks_vso.cluster_certificate_authority_data
-#     oidc_binding_id                    = component.k8s-rbac-vso.oidc_binding_id
-#   }
+  providers = {
+    kubernetes = provider.kubernetes.vso_oidc_configurations
+    helm       = provider.helm.vso_oidc_configurations
+    aws        = provider.aws.configurations
+    time       = provider.time.this
+  }
 
-#   providers = {
-#     kubernetes = provider.kubernetes.vso_oidc_configurations
-#     helm       = provider.helm.vso_oidc_configurations
-#     aws        = provider.aws.configurations
-#     time       = provider.time.this
-#   }
-# }
+}
 
-# # K8s Addons - VSO with CSI lane
-# component "k8s-addons-vso-csi" {
-  
+# K8s Addons - VSO with CSI lane
+component "k8s-addons-vso-csi" {
 
-#   source = "./modules/aws-eks-addon"
+  source = "./modules/aws-eks-addon"
 
-#   inputs = {
-#     cluster_name                       = component.eks_vso_csi.cluster_name
-#     vpc_id                             = component.vpc.vpc_id
-#     private_subnets                    = component.vpc.private_subnets
-#     cluster_endpoint                   = component.eks_vso_csi.cluster_endpoint
-#     cluster_version                    = component.eks_vso_csi.cluster_version
-#     oidc_provider_arn                  = component.eks_vso_csi.oidc_provider_arn
-#     cluster_certificate_authority_data = component.eks_vso_csi.cluster_certificate_authority_data
-#     oidc_binding_id                    = component.k8s-rbac-vso-csi.oidc_binding_id
-#   }
+  inputs = {
+    cluster_name                       = component.eks_vso_csi.cluster_name
+    vpc_id                             = component.vpc.vpc_id
+    private_subnets                    = component.vpc.private_subnets
+    cluster_endpoint                   = component.eks_vso_csi.cluster_endpoint
+    cluster_version                    = component.eks_vso_csi.cluster_version
+    oidc_provider_arn                  = component.eks_vso_csi.oidc_provider_arn
+    cluster_certificate_authority_data = component.eks_vso_csi.cluster_certificate_authority_data
+    oidc_binding_id                    = component.k8s-rbac-vso-csi.oidc_binding_id
+  }
 
-#   providers = {
-#     kubernetes = provider.kubernetes.vso_csi_oidc_configurations
-#     helm       = provider.helm.vso_csi_oidc_configurations
-#     aws        = provider.aws.configurations
-#     time       = provider.time.this
-#   }
-# }
+  providers = {
+    kubernetes = provider.kubernetes.vso_csi_oidc_configurations
+    helm       = provider.helm.vso_csi_oidc_configurations
+    aws        = provider.aws.configurations
+    time       = provider.time.this
+  }
+
+}
 
 # # Uptycs EDR - VSO lane
 # component "k8s-edr-vso" {
