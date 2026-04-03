@@ -113,10 +113,10 @@ variable "namespace_vso_csi" {
   default     = "vault-secrets-csi"
 }
 
-variable "regions" {
-  description = "(Optional) Set of AWS regions where resources will be deployed."
-  type        = set(string)
-  default     = ["ca-central-1"]
+variable "region" {
+  description = "(Optional) AWS region where resources will be deployed."
+  type        = string
+  default     = "ca-central-1"
 }
 
 variable "role_arn" {

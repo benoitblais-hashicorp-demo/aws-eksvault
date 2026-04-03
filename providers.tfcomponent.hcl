@@ -46,10 +46,8 @@ required_providers {
 }
 
 provider "aws" "configurations" {
-  for_each = var.regions
-
   config {
-    region = each.value
+    region = var.region
 
     assume_role_with_web_identity {
       role_arn           = var.role_arn
@@ -59,64 +57,52 @@ provider "aws" "configurations" {
 }
 
 provider "kubernetes" "vso_configurations" {
-  for_each = var.regions
-
   config { 
-    host                   = component.eks_vso[each.value].cluster_endpoint
-    cluster_ca_certificate = base64decode(component.eks_vso[each.value].cluster_certificate_authority_data)
-    token                  = component.eks_vso[each.value].eks_token
+    host                   = component.eks_vso.cluster_endpoint
+    cluster_ca_certificate = base64decode(component.eks_vso.cluster_certificate_authority_data)
+    token                  = component.eks_vso.eks_token
   }
 }
 
 provider "kubernetes" "vso_csi_configurations" {
-  for_each = var.regions
-
   config { 
-    host                   = component.eks_vso_csi[each.value].cluster_endpoint
-    cluster_ca_certificate = base64decode(component.eks_vso_csi[each.value].cluster_certificate_authority_data)
-    token                  = component.eks_vso_csi[each.value].eks_token
+    host                   = component.eks_vso_csi.cluster_endpoint
+    cluster_ca_certificate = base64decode(component.eks_vso_csi.cluster_certificate_authority_data)
+    token                  = component.eks_vso_csi.eks_token
   }
 }
 
 provider "kubernetes" "vso_oidc_configurations" {
-  for_each = var.regions
-
   config {
-    host                   = component.eks_vso[each.value].cluster_endpoint
-    cluster_ca_certificate = base64decode(component.eks_vso[each.value].cluster_certificate_authority_data)
+    host                   = component.eks_vso.cluster_endpoint
+    cluster_ca_certificate = base64decode(component.eks_vso.cluster_certificate_authority_data)
     token                  = var.k8s_identity_token
   }
 }
 
 provider "kubernetes" "vso_csi_oidc_configurations" {
-  for_each = var.regions
-
   config {
-    host                   = component.eks_vso_csi[each.value].cluster_endpoint
-    cluster_ca_certificate = base64decode(component.eks_vso_csi[each.value].cluster_certificate_authority_data)
+    host                   = component.eks_vso_csi.cluster_endpoint
+    cluster_ca_certificate = base64decode(component.eks_vso_csi.cluster_certificate_authority_data)
     token                  = var.k8s_identity_token
   }
 }
 
 provider "helm" "vso_oidc_configurations" {
-  for_each = var.regions
-
   config {
     kubernetes {
-      host                   = component.eks_vso[each.value].cluster_endpoint
-      cluster_ca_certificate = base64decode(component.eks_vso[each.value].cluster_certificate_authority_data)
+      host                   = component.eks_vso.cluster_endpoint
+      cluster_ca_certificate = base64decode(component.eks_vso.cluster_certificate_authority_data)
       token                  = var.k8s_identity_token
     }
   }
 }
 
 provider "helm" "vso_csi_oidc_configurations" {
-  for_each = var.regions
-
   config {
     kubernetes {
-      host                   = component.eks_vso_csi[each.value].cluster_endpoint
-      cluster_ca_certificate = base64decode(component.eks_vso_csi[each.value].cluster_certificate_authority_data)
+      host                   = component.eks_vso_csi.cluster_endpoint
+      cluster_ca_certificate = base64decode(component.eks_vso_csi.cluster_certificate_authority_data)
       token                  = var.k8s_identity_token
     }
   }
