@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD024 -->
 # AWS EKS Fargate Terraform module
 
 This module provisions an EKS control plane with Fargate profiles and optional cluster administrator access mapping.
