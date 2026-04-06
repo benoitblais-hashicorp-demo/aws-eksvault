@@ -49,9 +49,13 @@ The following requirements are needed by this module:
 
 - terraform (~> 1.14)
 
-## Providers
+- aws (~> 6.28)
 
-No providers.
+- helm (~> 2.12)
+
+- kubernetes (~> 2.25)
+
+- time (~> 0.1)
 
 ## Modules
 
@@ -62,10 +66,6 @@ The following Modules are called:
 Source: aws-ia/eks-blueprints-addons/aws
 
 Version: ~> 1.23
-
-## Resources
-
-No resources.
 
 ## Required Inputs
 
@@ -95,12 +95,6 @@ Description: (Required) Kubernetes version used by the EKS cluster.
 
 Type: `string`
 
-### oidc\_binding\_id
-
-Description: (Required) OIDC binding identifier used for component dependency ordering.
-
-Type: `string`
-
 ### oidc\_provider\_arn
 
 Description: (Required) OIDC provider ARN associated with the EKS cluster.
@@ -115,7 +109,15 @@ Type: `string`
 
 ## Optional Inputs
 
-No optional inputs.
+The following input variables are optional (have default values):
+
+### oidc\_binding\_id
+
+Description: (Optional) OIDC binding identifier used for component dependency ordering.
+
+Type: `string`
+
+Default: `""`
 
 ## Outputs
 

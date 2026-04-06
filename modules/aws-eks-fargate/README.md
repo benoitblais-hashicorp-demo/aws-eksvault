@@ -51,13 +51,7 @@ The following requirements are needed by this module:
 
 - terraform (~> 1.14)
 
-- aws (~> 5.0)
-
-## Providers
-
-The following providers are used by this module:
-
-- aws (~> 5.0)
+- aws (~> 6.28)
 
 ## Modules
 
@@ -67,7 +61,7 @@ The following Modules are called:
 
 Source: terraform-aws-modules/eks/aws
 
-Version: 20.2.0
+Version: ~> 21.0
 
 ## Resources
 
@@ -76,7 +70,6 @@ The following resources are used by this module:
 - [aws_eks_identity_provider_config.oidc_config](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eks_identity_provider_config) (resource)
 - [aws_iam_role.eks_clusteradmin](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) (resource)
 - [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) (data source)
-- [aws_eks_cluster.upstream](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster) (data source)
 - [aws_eks_cluster_auth.upstream_auth](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/eks_cluster_auth) (data source)
 
 ## Required Inputs

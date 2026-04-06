@@ -45,18 +45,6 @@ The following requirements are needed by this module:
 
 - time (~> 0.1)
 
-## Providers
-
-The following providers are used by this module:
-
-- kubernetes (~> 2.25)
-
-- time (~> 0.1)
-
-## Modules
-
-No modules.
-
 ## Resources
 
 The following resources are used by this module:

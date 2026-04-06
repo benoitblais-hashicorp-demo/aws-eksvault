@@ -44,15 +44,9 @@ module "vpc" {
 
 The following requirements are needed by this module:
 
-- terraform (>= 1.0.0)
+- terraform (~> 1.14)
 
-- aws (~> 5.0)
-
-## Providers
-
-The following providers are used by this module:
-
-- aws (~> 5.0)
+- aws (~> 6.28)
 
 ## Modules
 

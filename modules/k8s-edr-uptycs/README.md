@@ -40,23 +40,11 @@ module "k8s_edr_uptycs" {
 
 The following requirements are needed by this module:
 
-- terraform
+- terraform (~> 1.14)
 
-- helm
+- helm (~> 2.12)
 
-- kubernetes
-
-## Providers
-
-The following providers are used by this module:
-
-- helm
-
-- kubernetes
-
-## Modules
-
-No modules.
+- kubernetes (~> 2.25)
 
 ## Resources
 

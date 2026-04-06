@@ -8,5 +8,4 @@ terraform {
       version = "~> 6.28"
     }
   }
-
 }
