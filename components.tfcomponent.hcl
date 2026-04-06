@@ -284,20 +284,21 @@ component "vault-integration-vso-csi" {
 
 }
 
-# # Optional one-time Vault KVv2 mount configuration
-# component "vault-kv-mount" {
-#   for_each = var.vault_address != "" ? toset(["once"]) : toset([])
+# Optional one-time Vault KVv2 mount configuration
+component "vault-kv-mount" {
+  for_each = var.vault_address != "" ? toset(["once"]) : toset([])
 
-#   source = "./modules/vault-kv-mount"
+  source = "./modules/vault-kv-mount"
 
-#   inputs = {
-#     mount_path = var.vault_kv_mount_path
-#   }
+  inputs = {
+    mount_path = var.vault_kv_mount_path
+  }
 
-#   providers = {
-#     vault = provider.vault.this
-#   }
-# }
+  providers = {
+    vault = provider.vault.this
+  }
+
+}
 
 # # Optional Vault auth and policy configuration - VSO lane
 # component "vault-config-vso" {

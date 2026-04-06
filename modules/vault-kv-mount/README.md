@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD024 -->
 # Vault KV Mount Terraform module
 
 This module provisions a KVv2 secret engine mount in Vault.
@@ -46,31 +47,21 @@ module "vault_kv_mount" {
 
 The following requirements are needed by this module:
 
-- <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (>= 1.0.0)
+- terraform (~> 1.14)
 
-- <a name="requirement_vault"></a> [vault](#requirement\_vault) (5.8.0)
-
-## Providers
-
-The following providers are used by this module:
-
-- <a name="provider_vault"></a> [vault](#provider\_vault) (5.8.0)
-
-## Modules
-
-No modules.
+- vault (~> 5.8)
 
 ## Resources
 
 The following resources are used by this module:
 
-- [vault_mount.kvv2](https://registry.terraform.io/providers/hashicorp/vault/5.8.0/docs/resources/mount) (resource)
+- [vault_mount.kvv2](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/mount) (resource)
 
 ## Required Inputs
 
 The following input variables are required:
 
-### <a name="input_mount_path"></a> [mount\_path](#input\_mount\_path)
+### mount_path
 
 Description: (Required) Vault KVv2 mount path to create once for demo secret storage.
 
@@ -84,6 +75,6 @@ No optional inputs.
 
 The following outputs are exported:
 
-### <a name="output_mount_path"></a> [mount\_path](#output\_mount\_path)
+### mount_path
 
 Description: KVv2 mount path created by this module.
