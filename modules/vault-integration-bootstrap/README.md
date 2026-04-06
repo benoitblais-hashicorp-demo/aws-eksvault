@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD024 -->
 # Vault Integration Bootstrap Terraform module
 
 This module bootstraps Kubernetes-side components for Vault integration demonstrations, including VSO and optional CSI driver support.
@@ -131,23 +132,11 @@ module "vault_integration_bootstrap" {
 
 The following requirements are needed by this module:
 
-- <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (>= 1.0.0)
+- terraform (~> 1.14)
 
-- <a name="requirement_helm"></a> [helm](#requirement\_helm) (~> 2.13)
+- helm (~> 2.13)
 
-- <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) (~> 2.25)
-
-## Providers
-
-The following providers are used by this module:
-
-- <a name="provider_helm"></a> [helm](#provider\_helm) (~> 2.13)
-
-- <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) (~> 2.25)
-
-## Modules
-
-No modules.
+- kubernetes (~> 2.25)
 
 ## Resources
 
@@ -162,25 +151,25 @@ The following resources are used by this module:
 
 The following input variables are required:
 
-### <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name)
+### cluster_name
 
 Description: (Required) Cluster name used for tagging and release naming.
 
 Type: `string`
 
-### <a name="input_integration_mode"></a> [integration\_mode](#input\_integration\_mode)
+### integration_mode
 
 Description: (Required) Integration profile.
 
 Type: `string`
 
-### <a name="input_namespace"></a> [namespace](#input\_namespace)
+### namespace
 
 Description: (Required) Namespace where the integration components are installed.
 
 Type: `string`
 
-### <a name="input_vault_address"></a> [vault\_address](#input\_vault\_address)
+### vault_address
 
 Description: (Required) Vault address used by downstream configuration.
 
@@ -188,20 +177,32 @@ Type: `string`
 
 ## Optional Inputs
 
-No optional inputs.
+The following input variables are optional (have default values):
+
+### cluster_readiness_token
+
+Description: (Optional) A dummy token used to explicitly order component execution (e.g. forcing wait for RBAC).
+
+Type: `string`
+
+Default: `""`
 
 ## Outputs
 
 The following outputs are exported:
 
-### <a name="output_integration_mode"></a> [integration\_mode](#output\_integration\_mode)
+### integration_mode
 
 Description: Integration mode deployed in this cluster.
 
-### <a name="output_namespace"></a> [namespace](#output\_namespace)
+### namespace
 
 Description: Namespace where Vault integration components are deployed.
 
-### <a name="output_vault_address"></a> [vault\_address](#output\_vault\_address)
+### vault_address
 
 Description: Vault address configured for the integration bootstrap.
+
+### vso_release_revision
+
+Description: Helm revision for the Vault Secrets Operator release; used as a dependency token by downstream components.

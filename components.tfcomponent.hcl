@@ -242,45 +242,47 @@ component "k8s-namespace-vso-csi" {
 
 }
 
-# # Optional Vault integration bootstrap - VSO lane
-# component "vault-integration-vso" {
-#   for_each = var.vault_address != "" ? toset(["enabled"]) : toset([])
+# Optional Vault integration bootstrap - VSO lane
+component "vault-integration-vso" {
+  for_each = var.vault_address != "" ? toset(["enabled"]) : toset([])
 
-#   source = "./modules/vault-integration-bootstrap"
+  source = "./modules/vault-integration-bootstrap"
 
-#   inputs = {
-#     cluster_name            = component.eks_vso.cluster_name
-#     integration_mode        = "vso"
-#     namespace               = var.namespace_vso
-#     vault_address           = var.vault_address
-#     cluster_readiness_token = component.k8s-rbac-vso.oidc_binding_id
-#   }
+  inputs = {
+    cluster_name            = component.eks_vso.cluster_name
+    integration_mode        = "vso"
+    namespace               = var.namespace_vso
+    vault_address           = var.vault_address
+    cluster_readiness_token = component.k8s-rbac-vso.oidc_binding_id
+  }
 
-#   providers = {
-#     kubernetes = provider.kubernetes.vso_oidc_configurations
-#     helm       = provider.helm.vso_oidc_configurations
-#   }
-# }
+  providers = {
+    kubernetes = provider.kubernetes.vso_oidc_configurations
+    helm       = provider.helm.vso_oidc_configurations
+  }
 
-# # Optional Vault integration bootstrap - VSO with CSI lane
-# component "vault-integration-vso-csi" {
-#   for_each = var.vault_address != "" ? toset(["enabled"]) : toset([])
+}
 
-#   source = "./modules/vault-integration-bootstrap"
+# Optional Vault integration bootstrap - VSO with CSI lane
+component "vault-integration-vso-csi" {
+  for_each = var.vault_address != "" ? toset(["enabled"]) : toset([])
 
-#   inputs = {
-#     cluster_name            = component.eks_vso_csi.cluster_name
-#     integration_mode        = "vso_csi"
-#     namespace               = var.namespace_vso_csi
-#     vault_address           = var.vault_address
-#     cluster_readiness_token = component.k8s-rbac-vso-csi.oidc_binding_id
-#   }
+  source = "./modules/vault-integration-bootstrap"
 
-#   providers = {
-#     kubernetes = provider.kubernetes.vso_csi_oidc_configurations
-#     helm       = provider.helm.vso_csi_oidc_configurations
-#   }
-# }
+  inputs = {
+    cluster_name            = component.eks_vso_csi.cluster_name
+    integration_mode        = "vso_csi"
+    namespace               = var.namespace_vso_csi
+    vault_address           = var.vault_address
+    cluster_readiness_token = component.k8s-rbac-vso-csi.oidc_binding_id
+  }
+
+  providers = {
+    kubernetes = provider.kubernetes.vso_csi_oidc_configurations
+    helm       = provider.helm.vso_csi_oidc_configurations
+  }
+
+}
 
 # # Optional one-time Vault KVv2 mount configuration
 # component "vault-kv-mount" {
