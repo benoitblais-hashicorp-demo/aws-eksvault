@@ -206,39 +206,41 @@ component "k8s-edr-vso-csi" {
 
 }
 
-# # Namespace - VSO lane
-# component "k8s-namespace-vso" {
+# Namespace - VSO lane
+component "k8s-namespace-vso" {
 
-#   source = "./modules/k8s-namespace"
+  source = "./modules/k8s-namespace"
 
-#   inputs = {
-#     namespace = var.namespace_vso
-#     labels = {
-#       addons-count = tostring(length(keys(component.k8s-addons-vso.eks_addons)))
-#     }
-#   }
+  inputs = {
+    namespace = var.namespace_vso
+    labels = {
+      addons-count = tostring(length(keys(component.k8s-addons-vso.eks_addons)))
+    }
+  }
 
-#   providers = {
-#     kubernetes = provider.kubernetes.vso_oidc_configurations
-#   }
-# }
+  providers = {
+    kubernetes = provider.kubernetes.vso_oidc_configurations
+  }
 
-# # Namespace - VSO with CSI lane
-# component "k8s-namespace-vso-csi" {
+}
 
-#   source = "./modules/k8s-namespace"
+# Namespace - VSO with CSI lane
+component "k8s-namespace-vso-csi" {
 
-#   inputs = {
-#     namespace = var.namespace_vso_csi
-#     labels = {
-#       addons-count = tostring(length(keys(component.k8s-addons-vso-csi.eks_addons)))
-#     }
-#   }
+  source = "./modules/k8s-namespace"
 
-#   providers = {
-#     kubernetes = provider.kubernetes.vso_csi_oidc_configurations
-#   }
-# }
+  inputs = {
+    namespace = var.namespace_vso_csi
+    labels = {
+      addons-count = tostring(length(keys(component.k8s-addons-vso-csi.eks_addons)))
+    }
+  }
+
+  providers = {
+    kubernetes = provider.kubernetes.vso_csi_oidc_configurations
+  }
+
+}
 
 # # Optional Vault integration bootstrap - VSO lane
 # component "vault-integration-vso" {

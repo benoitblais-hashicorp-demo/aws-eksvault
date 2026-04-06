@@ -1,11 +1,6 @@
-resource "kubernetes_namespace_v1" "example" {
+resource "kubernetes_namespace_v1" "target" {
   metadata {
-    annotations = {
-      name = "example-annotation"
-    }
-
     labels = var.labels
-
-    name = var.namespace
+    name   = var.namespace
   }
 }
