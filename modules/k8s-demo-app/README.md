@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD024 -->
 # Kubernetes Demo App Terraform module
 
 This module deploys a VSO-backed demo web application where values are sourced from Vault KVv2 and synced into Kubernetes secrets.
@@ -43,23 +44,27 @@ module "k8s_demo_app" {
 
 The following requirements are needed by this module:
 
-- <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (>= 1.0.0)
+- terraform (~> 1.14)
 
-- <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) (~> 2.25)
+- helm (~> 2.12)
 
-- <a name="requirement_time"></a> [time](#requirement\_time) (~> 0.1)
+- kubernetes (~> 2.25)
 
-- <a name="requirement_vault"></a> [vault](#requirement\_vault) (5.8.0)
+- time (~> 0.1)
+
+- vault (~> 5.8)
 
 ## Providers
 
 The following providers are used by this module:
 
-- <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) (~> 2.25)
+- helm (~> 2.12)
 
-- <a name="provider_time"></a> [time](#provider\_time) (~> 0.1)
+- kubernetes (~> 2.25)
 
-- <a name="provider_vault"></a> [vault](#provider\_vault) (5.8.0)
+- time (~> 0.1)
+
+- vault (~> 5.8)
 
 ## Modules
 
@@ -69,56 +74,55 @@ No modules.
 
 The following resources are used by this module:
 
+- [helm_release.vso_custom_resources](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) (resource)
 - [kubernetes_deployment.static_app](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/deployment) (resource)
 - [kubernetes_ingress_v1.static_app](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/ingress_v1) (resource)
-- [kubernetes_manifest.vault_auth](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) (resource)
-- [kubernetes_manifest.vault_connection](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) (resource)
-- [kubernetes_manifest.vault_static_secret](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/manifest) (resource)
 - [kubernetes_service_v1.static_app](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_v1) (resource)
 - [time_sleep.wait_60_seconds](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) (resource)
+- [time_sleep.wait_for_vso_crd_registration](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) (resource)
 - [vault_kv_secret_v2.webapp](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/kv_secret_v2) (resource)
 
 ## Required Inputs
 
 The following input variables are required:
 
-### <a name="input_app_namespace"></a> [app\_namespace](#input\_app\_namespace)
+### app_namespace
 
 Description: (Required) Namespace where the demo application is deployed.
 
 Type: `string`
 
-### <a name="input_demo_app_image"></a> [demo\_app\_image](#input\_demo\_app\_image)
+### demo_app_image
 
 Description: (Required) Container image for the demo web application.
 
 Type: `string`
 
-### <a name="input_vault_address"></a> [vault\_address](#input\_vault\_address)
+### vault_address
 
 Description: (Required) Vault address used by the VaultConnection custom resource.
 
 Type: `string`
 
-### <a name="input_vault_auth_path"></a> [vault\_auth\_path](#input\_vault\_auth\_path)
+### vault_auth_path
 
 Description: (Required) Vault Kubernetes auth mount path used by VaultAuth.
 
 Type: `string`
 
-### <a name="input_vault_auth_role"></a> [vault\_auth\_role](#input\_vault\_auth\_role)
+### vault_auth_role
 
 Description: (Required) Vault role name used by VaultAuth.
 
 Type: `string`
 
-### <a name="input_vault_kv_mount_path"></a> [vault\_kv\_mount\_path](#input\_vault\_kv\_mount\_path)
+### vault_kv_mount_path
 
 Description: (Required) Vault KVv2 mount path containing demo secrets.
 
 Type: `string`
 
-### <a name="input_vault_secret_path_prefix"></a> [vault\_secret\_path\_prefix](#input\_vault\_secret\_path\_prefix)
+### vault_secret_path_prefix
 
 Description: (Required) Vault KVv2 secret prefix used by this demo (cluster-scoped prefix recommended).
 
@@ -128,7 +132,7 @@ Type: `string`
 
 The following input variables are optional (have default values):
 
-### <a name="input_initial_image_url"></a> [initial\_image\_url](#input\_initial\_image\_url)
+### initial_image_url
 
 Description: (Optional) Initial image URL stored in Vault and rendered by the demo webpage.
 
@@ -136,7 +140,7 @@ Type: `string`
 
 Default: `"https://developer.hashicorp.com/favicon.ico"`
 
-### <a name="input_initial_message"></a> [initial\_message](#input\_initial\_message)
+### initial_message
 
 Description: (Optional) Initial message stored in Vault and rendered by the demo webpage.
 
@@ -144,7 +148,15 @@ Type: `string`
 
 Default: `"Secret synced from Vault through VSO."`
 
-### <a name="input_vso_service_account_name"></a> [vso\_service\_account\_name](#input\_vso\_service\_account\_name)
+### integration_dependency_token
+
+Description: (Optional) Opaque dependency token from the VSO integration bootstrap release used to enforce ordering.
+
+Type: `string`
+
+Default: `""`
+
+### vso_service_account_name
 
 Description: (Optional) Service account used by VaultAuth in the demo namespace.
 
@@ -156,10 +168,10 @@ Default: `"vault-secrets-operator-controller-manager"`
 
 The following outputs are exported:
 
-### <a name="output_vault_secret_path"></a> [vault\_secret\_path](#output\_vault\_secret\_path)
+### vault_secret_path
 
 Description: Vault KVv2 secret path backing the webpage content.
 
-### <a name="output_website_url"></a> [website\_url](#output\_website\_url)
+### website_url
 
 Description: Demo webpage URL exposed through the Kubernetes ingress load balancer.

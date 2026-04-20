@@ -13,24 +13,6 @@ variable "demo_app_image" {
   type        = string
 }
 
-variable "initial_image_url" {
-  description = "(Optional) Initial image URL stored in Vault and rendered by the demo webpage."
-  type        = string
-  default     = "https://developer.hashicorp.com/favicon.ico"
-}
-
-variable "initial_message" {
-  description = "(Optional) Initial message stored in Vault and rendered by the demo webpage."
-  type        = string
-  default     = "Secret synced from Vault through VSO."
-}
-
-variable "integration_dependency_token" {
-  description = "(Optional) Opaque dependency token from the VSO integration bootstrap release used to enforce ordering."
-  type        = string
-  default     = ""
-}
-
 variable "vault_address" {
   description = "(Required) Vault address used by the VaultConnection custom resource."
   type        = string
@@ -54,6 +36,24 @@ variable "vault_kv_mount_path" {
 variable "vault_secret_path_prefix" {
   description = "(Required) Vault KVv2 secret prefix used by this demo (cluster-scoped prefix recommended)."
   type        = string
+}
+
+variable "initial_image_url" {
+  description = "(Optional) Initial image URL stored in Vault and rendered by the demo webpage."
+  type        = string
+  default     = "https://developer.hashicorp.com/favicon.ico"
+}
+
+variable "initial_message" {
+  description = "(Optional) Initial message stored in Vault and rendered by the demo webpage."
+  type        = string
+  default     = "Secret synced from Vault through VSO."
+}
+
+variable "integration_dependency_token" {
+  description = "(Optional) Opaque dependency token from the VSO integration bootstrap release used to enforce ordering."
+  type        = string
+  default     = ""
 }
 
 variable "vso_service_account_name" {

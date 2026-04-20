@@ -390,54 +390,54 @@ component "k8s-namespace-app-vso-csi" {
 
 }
 
-# # Optional VSO static-secret demo webpage - VSO lane
-# component "k8s-demo-app-vso" {
-#   for_each = var.vault_address != "" && var.demo_webapp_image != "" ? toset(["enabled"]) : toset([])
+# Optional VSO static-secret demo webpage - VSO lane
+component "k8s-demo-app-vso" {
+  for_each = var.vault_address != "" && var.demo_webapp_image != "" ? toset(["enabled"]) : toset([])
 
-#   source = "./modules/k8s-demo-app"
+  source = "./modules/k8s-demo-app"
 
-#   inputs = {
-#     app_namespace                = component.k8s-namespace-app-vso.namespace
-#     integration_dependency_token = component.vault-integration-vso.vso_release_revision
-#     demo_app_image         = var.demo_webapp_image
-#     vault_address          = var.vault_address
-#     vault_auth_path        = component.vault-config-vso.auth_path
-#     vault_auth_role        = component.vault-config-vso.vso_role_name
-#     vault_kv_mount_path    = var.vault_kv_mount_path
-#     vault_secret_path_prefix = "${var.vault_secret_path_prefix}/${component.eks_vso.cluster_name}"
-#     vso_service_account_name = var.vso_service_account_name
-#   }
+  inputs = {
+    app_namespace                = component.k8s-namespace-app-vso.namespace
+    integration_dependency_token = component.vault-integration-vso.vso_release_revision
+    demo_app_image         = var.demo_webapp_image
+    vault_address          = var.vault_address
+    vault_auth_path        = component.vault-config-vso.auth_path
+    vault_auth_role        = component.vault-config-vso.vso_role_name
+    vault_kv_mount_path    = var.vault_kv_mount_path
+    vault_secret_path_prefix = "${var.vault_secret_path_prefix}/${component.eks_vso.cluster_name}"
+    vso_service_account_name = var.vso_service_account_name
+  }
 
-#   providers = {
-#     helm       = provider.helm.vso_oidc_configurations
-#     kubernetes = provider.kubernetes.vso_oidc_configurations
-#     time       = provider.time.this
-#     vault      = provider.vault.this
-#   }
-# }
+  providers = {
+    helm       = provider.helm.vso_oidc_configurations
+    kubernetes = provider.kubernetes.vso_oidc_configurations
+    time       = provider.time.this
+    vault      = provider.vault.this
+  }
+}
 
-# # Optional VSO static-secret demo webpage - VSO with CSI lane
-# component "k8s-demo-app-vso-csi" {
-#   for_each = var.vault_address != "" && var.demo_webapp_image != "" ? toset(["enabled"]) : toset([])
+# Optional VSO static-secret demo webpage - VSO with CSI lane
+component "k8s-demo-app-vso-csi" {
+  for_each = var.vault_address != "" && var.demo_webapp_image != "" ? toset(["enabled"]) : toset([])
 
-#   source = "./modules/k8s-demo-app"
+  source = "./modules/k8s-demo-app"
 
-#   inputs = {
-#     app_namespace = component.k8s-namespace-app-vso-csi.namespace
-#     integration_dependency_token = component.vault-integration-vso-csi.vso_release_revision
-#     demo_app_image           = var.demo_webapp_image
-#     vault_address            = var.vault_address
-#     vault_auth_path          = component.vault-config-vso-csi.auth_path
-#     vault_auth_role          = component.vault-config-vso-csi.vso_role_name
-#     vault_kv_mount_path      = var.vault_kv_mount_path
-#     vault_secret_path_prefix = "${var.vault_secret_path_prefix}/${component.eks_vso_csi.cluster_name}"
-#     vso_service_account_name = var.vso_service_account_name
-#   }
+  inputs = {
+    app_namespace = component.k8s-namespace-app-vso-csi.namespace
+    integration_dependency_token = component.vault-integration-vso-csi.vso_release_revision
+    demo_app_image           = var.demo_webapp_image
+    vault_address            = var.vault_address
+    vault_auth_path          = component.vault-config-vso-csi.auth_path
+    vault_auth_role          = component.vault-config-vso-csi.vso_role_name
+    vault_kv_mount_path      = var.vault_kv_mount_path
+    vault_secret_path_prefix = "${var.vault_secret_path_prefix}/${component.eks_vso_csi.cluster_name}"
+    vso_service_account_name = var.vso_service_account_name
+  }
 
-#   providers = {
-#     helm       = provider.helm.vso_csi_oidc_configurations
-#     kubernetes = provider.kubernetes.vso_csi_oidc_configurations
-#     time       = provider.time.this
-#     vault      = provider.vault.this
-#   }
-# }
+  providers = {
+    helm       = provider.helm.vso_csi_oidc_configurations
+    kubernetes = provider.kubernetes.vso_csi_oidc_configurations
+    time       = provider.time.this
+    vault      = provider.vault.this
+  }
+}
