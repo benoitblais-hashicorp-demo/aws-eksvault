@@ -352,41 +352,43 @@ component "vault-config-vso-csi" {
 
 }
 
-# # App Namespace - VSO lane
-# component "k8s-namespace-app-vso" {
+# App Namespace - VSO lane
+component "k8s-namespace-app-vso" {
   
-#   source = "./modules/k8s-namespace"
+  source = "./modules/k8s-namespace"
 
-#   inputs = {
-#     # You can add a var.app_namespace to variables.tfcomponent.hcl
-#     namespace = "demo-app" 
-#     labels = {
-#       addons-count = tostring(length(keys(component.k8s-addons-vso.eks_addons)))
-#     }
-#   }
+  inputs = {
+    # You can add a var.app_namespace to variables.tfcomponent.hcl
+    namespace = "demo-app" 
+    labels = {
+      addons-count = tostring(length(keys(component.k8s-addons-vso.eks_addons)))
+    }
+  }
 
-#   providers = {
-#     kubernetes = provider.kubernetes.vso_oidc_configurations
-#   }
-# }
+  providers = {
+    kubernetes = provider.kubernetes.vso_oidc_configurations
+  }
 
-# # App Namespace - VSO with CSI lane
-# component "k8s-namespace-app-vso-csi" {
+}
+
+# App Namespace - VSO with CSI lane
+component "k8s-namespace-app-vso-csi" {
   
-#   source = "./modules/k8s-namespace"
+  source = "./modules/k8s-namespace"
 
-#   inputs = {
-#     # You can add a var.app_namespace to variables.tfcomponent.hcl
-#     namespace = "demo-app"
-#     labels = {
-#       addons-count = tostring(length(keys(component.k8s-addons-vso-csi.eks_addons)))
-#     }
-#   }
+  inputs = {
+    # You can add a var.app_namespace to variables.tfcomponent.hcl
+    namespace = "demo-app"
+    labels = {
+      addons-count = tostring(length(keys(component.k8s-addons-vso-csi.eks_addons)))
+    }
+  }
 
-#   providers = {
-#     kubernetes = provider.kubernetes.vso_csi_oidc_configurations
-#   }
-# }
+  providers = {
+    kubernetes = provider.kubernetes.vso_csi_oidc_configurations
+  }
+
+}
 
 # # Optional VSO static-secret demo webpage - VSO lane
 # component "k8s-demo-app-vso" {

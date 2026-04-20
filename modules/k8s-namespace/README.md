@@ -42,6 +42,12 @@ The following requirements are needed by this module:
 
 - kubernetes (~> 2.25)
 
+## Providers
+
+The following providers are used by this module:
+
+- kubernetes (~> 2.25)
+
 ## Resources
 
 The following resources are used by this module:
