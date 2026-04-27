@@ -12,4 +12,3 @@ output "eks_addons" {
   description = "Map of attributes for enabled EKS add-ons."
   value       = module.eks_blueprints_addons.eks_addons
 }
-

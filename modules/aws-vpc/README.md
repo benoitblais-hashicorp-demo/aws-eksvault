@@ -44,25 +44,19 @@ module "vpc" {
 
 The following requirements are needed by this module:
 
-- <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (>= 1.0.0)
+- terraform (~> 1.14)
 
-- <a name="requirement_aws"></a> [aws](#requirement\_aws) (~> 5.0)
-
-## Providers
-
-The following providers are used by this module:
-
-- <a name="provider_aws"></a> [aws](#provider\_aws) (~> 5.0)
+- aws (~> 6.28)
 
 ## Modules
 
 The following Modules are called:
 
-### <a name="module_vpc"></a> [vpc](#module\_vpc)
+### vpc
 
 Source: terraform-aws-modules/vpc/aws
 
-Version: 5.0
+Version: ~> 6.0
 
 ## Resources
 
@@ -74,13 +68,13 @@ The following resources are used by this module:
 
 The following input variables are required:
 
-### <a name="input_vpc_cidr"></a> [vpc\_cidr](#input\_vpc\_cidr)
+### vpc\_cidr
 
 Description: (Required) CIDR block for the VPC.
 
 Type: `string`
 
-### <a name="input_vpc_name"></a> [vpc\_name](#input\_vpc\_name)
+### vpc\_name
 
 Description: (Required) Name of the VPC.
 
@@ -94,14 +88,14 @@ No optional inputs.
 
 The following outputs are exported:
 
-### <a name="output_private_subnets"></a> [private\_subnets](#output\_private\_subnets)
+### private\_subnets
 
 Description: List of private subnet identifiers created in the VPC.
 
-### <a name="output_route_table_id"></a> [route\_table\_id](#output\_route\_table\_id)
+### route\_table\_id
 
 Description: List of private route table identifiers created in the VPC.
 
-### <a name="output_vpc_id"></a> [vpc\_id](#output\_vpc\_id)
+### vpc\_id
 
 Description: Identifier of the VPC.

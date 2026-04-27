@@ -39,23 +39,11 @@ module "k8s_rbac" {
 
 The following requirements are needed by this module:
 
-- <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (>= 1.0.0)
+- terraform (~> 1.14)
 
-- <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) (~> 2.25)
+- kubernetes (~> 2.25)
 
-- <a name="requirement_time"></a> [time](#requirement\_time) (~> 0.1)
-
-## Providers
-
-The following providers are used by this module:
-
-- <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) (~> 2.25)
-
-- <a name="provider_time"></a> [time](#provider\_time) (~> 0.1)
-
-## Modules
-
-No modules.
+- time (~> 0.1)
 
 ## Resources
 
@@ -68,13 +56,13 @@ The following resources are used by this module:
 
 The following input variables are required:
 
-### <a name="input_cluster_endpoint"></a> [cluster\_endpoint](#input\_cluster\_endpoint)
+### cluster\_endpoint
 
 Description: (Required) Kubernetes API server endpoint URL.
 
 Type: `string`
 
-### <a name="input_tfc_organization_name"></a> [tfc\_organization\_name](#input\_tfc\_organization\_name)
+### tfc\_organization\_name
 
 Description: (Required) Terraform Cloud organization name used for RBAC mapping.
 
@@ -88,6 +76,6 @@ No optional inputs.
 
 The following outputs are exported:
 
-### <a name="output_oidc_binding_id"></a> [oidc\_binding\_id](#output\_oidc\_binding\_id)
+### oidc\_binding\_id
 
 Description: Identifier of the Kubernetes OIDC cluster role binding.

@@ -1,5 +1,5 @@
 ---
-name: provider-test-patterns
+name: hashicorp-terraform-provider-development-skills-provider-test-patterns
 description: >-
   Terraform provider acceptance test patterns using terraform-plugin-testing
   with the Plugin Framework. Covers test structure, TestCase/TestStep fields,

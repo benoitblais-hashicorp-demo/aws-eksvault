@@ -10,13 +10,6 @@ variable "namespace" {
 
 variable "labels" {
   description = "(Optional) Labels applied to the namespace metadata."
-  type        = any
-  default = {
-    mylabel = "example-label"
-  }
-
-  validation {
-    condition     = can(tomap(var.labels))
-    error_message = "The `labels` variable must be a map-compatible value."
-  }
+  type        = map(string)
+  default     = {}
 }

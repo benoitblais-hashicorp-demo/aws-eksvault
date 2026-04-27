@@ -1,5 +1,5 @@
 ---
-name: aws-ami-builder
+name: hashicorp-packer-builders-skills-aws-ami-builder
 description: Build Amazon Machine Images (AMIs) with Packer using the amazon-ebs builder. Use when creating custom AMIs for EC2 instances.
 ---
 
@@ -168,3 +168,4 @@ packer build -var "region=us-east-1" .
 
 - [Amazon EBS Builder](https://developer.hashicorp.com/packer/integrations/hashicorp/amazon/latest/components/builder/ebs)
 - [AWS AMI Documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html)
+

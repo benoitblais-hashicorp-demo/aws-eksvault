@@ -74,7 +74,7 @@ Refer to CONTRIBUTING.md for general coding guidelines.
 ## Provider Configuration
 
 - Always include a default provider configuration
-- Define all providers in the same file (`providers.tfcomponent.hcl` for the root stack, or `providers.tf` for child modules)
+- Define all providers in the same file (`providers.tfcomponent.hcl` for the root stack)
 - Define the default provider first, then aliased providers
 - Use `alias` as the first parameter in non-default provider blocks
 

@@ -3,12 +3,6 @@ variable "addons_dependency_token" {
   type        = string
 }
 
-variable "additional_values_yaml" {
-  description = "(Optional) Additional Helm values YAML documents merged after default tag configuration."
-  type        = list(string)
-  default     = []
-}
-
 variable "cluster_name" {
   description = "(Required) EKS cluster name used for metadata labeling."
   type        = string
@@ -17,6 +11,17 @@ variable "cluster_name" {
 variable "cluster_readiness_token" {
   description = "(Required) Dependency token to ensure this component runs after cluster RBAC readiness."
   type        = string
+}
+
+variable "uptycs_tags" {
+  description = "(Required) Comma-separated Uptycs tags in UPDATE/CCODE/UT/OWNER format."
+  type        = string
+}
+
+variable "additional_values_yaml" {
+  description = "(Optional) Additional Helm values YAML documents merged after default tag configuration."
+  type        = list(string)
+  default     = []
 }
 
 variable "helm_chart" {
@@ -41,9 +46,4 @@ variable "namespace" {
   description = "(Optional) Namespace where Uptycs EDR components are installed."
   type        = string
   default     = "uptycs"
-}
-
-variable "uptycs_tags" {
-  description = "(Required) Comma-separated Uptycs tags in UPDATE/CCODE/UT/OWNER format."
-  type        = string
 }

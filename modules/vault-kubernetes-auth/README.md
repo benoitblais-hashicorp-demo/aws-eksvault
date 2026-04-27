@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD024 -->
 # Vault Kubernetes Auth Terraform module
 
 This module configures Vault Kubernetes authentication and role-based policies for the EKS demo clusters used by VSO and optional CSI integration.
@@ -60,72 +61,62 @@ module "vault_kubernetes_auth" {
 
 The following requirements are needed by this module:
 
-- <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (>= 1.0.0)
+- terraform (~> 1.14)
 
-- <a name="requirement_vault"></a> [vault](#requirement\_vault) (5.8.0)
-
-## Providers
-
-The following providers are used by this module:
-
-- <a name="provider_vault"></a> [vault](#provider\_vault) (5.8.0)
-
-## Modules
-
-No modules.
+- vault (~> 5.8)
 
 ## Resources
 
 The following resources are used by this module:
 
-- [vault_auth_backend.kubernetes](https://registry.terraform.io/providers/hashicorp/vault/5.8.0/docs/resources/auth_backend) (resource)
-- [vault_kubernetes_auth_backend_config.this](https://registry.terraform.io/providers/hashicorp/vault/5.8.0/docs/resources/kubernetes_auth_backend_config) (resource)
-- [vault_kubernetes_auth_backend_role.csi](https://registry.terraform.io/providers/hashicorp/vault/5.8.0/docs/resources/kubernetes_auth_backend_role) (resource)
-- [vault_kubernetes_auth_backend_role.vso](https://registry.terraform.io/providers/hashicorp/vault/5.8.0/docs/resources/kubernetes_auth_backend_role) (resource)
-- [vault_policy.csi](https://registry.terraform.io/providers/hashicorp/vault/5.8.0/docs/resources/policy) (resource)
-- [vault_policy.vso](https://registry.terraform.io/providers/hashicorp/vault/5.8.0/docs/resources/policy) (resource)
+- [vault_auth_backend.kubernetes](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/auth_backend) (resource)
+- [vault_kubernetes_auth_backend_config.this](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/kubernetes_auth_backend_config) (resource)
+- [vault_kubernetes_auth_backend_role.csi](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/kubernetes_auth_backend_role) (resource)
+- [vault_kubernetes_auth_backend_role.vso](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/kubernetes_auth_backend_role) (resource)
+- [vault_policy.csi](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/policy) (resource)
+- [vault_policy.vso](https://registry.terraform.io/providers/hashicorp/vault/latest/docs/resources/policy) (resource)
 
 ## Required Inputs
 
 The following input variables are required:
 
-### <a name="input_auth_path"></a> [auth\_path](#input\_auth\_path)
+### auth_path
 
 Description: (Required) Vault auth mount path for the Kubernetes auth backend.
 
 Type: `string`
 
-### <a name="input_cluster_certificate_authority_data"></a> [cluster\_certificate\_authority\_data](#input\_cluster\_certificate\_authority\_data)
+### cluster_certificate_authority_data
 
 Description: (Required) Base64-encoded Kubernetes cluster CA certificate.
 
 Type: `string`
 
-### <a name="input_cluster_endpoint"></a> [cluster\_endpoint](#input\_cluster\_endpoint)
+### cluster_endpoint
 
 Description: (Required) Kubernetes API endpoint URL used by Vault token review.
 
 Type: `string`
 
-### <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name)
+### cluster_name
 
 Description: (Required) Cluster name used for policy naming.
 
 Type: `string`
 
-### <a name="input_token_reviewer_jwt"></a> [token\_reviewer\_jwt](#input\_token\_reviewer\_jwt)
+### token_reviewer_jwt
 
 Description: (Required) JWT token used by Vault to call Kubernetes TokenReview API.
 
 Type: `string`
 
-### <a name="input_vso_namespace"></a> [vso\_namespace](#input\_vso\_namespace)
+### vso_namespace
 
 Description: (Required) Namespace containing Vault Secrets Operator workloads.
 
 Type: `string`
 
-### <a name="input_vso_service_account_name"></a> [vso\_service\_account\_name](#input\_vso\_service\_account\_name)
+### vso_service_account_name
 
 Description: (Required) Service account name bound to the VSO Vault role.
 
@@ -135,7 +126,7 @@ Type: `string`
 
 The following input variables are optional (have default values):
 
-### <a name="input_csi_role_name"></a> [csi\_role\_name](#input\_csi\_role\_name)
+### csi_role_name
 
 Description: (Optional) Vault Kubernetes auth role name for CSI workloads.
 
@@ -143,7 +134,7 @@ Type: `string`
 
 Default: `"vso-csi-role"`
 
-### <a name="input_csi_service_account_name"></a> [csi\_service\_account\_name](#input\_csi\_service\_account\_name)
+### csi_service_account_name
 
 Description: (Optional) Service account name bound to the CSI Vault role.
 
@@ -151,7 +142,7 @@ Type: `string`
 
 Default: `"vault-csi-provider"`
 
-### <a name="input_csi_service_account_namespace"></a> [csi\_service\_account\_namespace](#input\_csi\_service\_account\_namespace)
+### csi_service_account_namespace
 
 Description: (Optional) Namespace of the CSI service account bound to the CSI Vault role.
 
@@ -159,7 +150,7 @@ Type: `string`
 
 Default: `"kube-system"`
 
-### <a name="input_enable_csi_role"></a> [enable\_csi\_role](#input\_enable\_csi\_role)
+### enable_csi_role
 
 Description: (Optional) Whether to create a dedicated Vault Kubernetes auth role for CSI.
 
@@ -167,7 +158,7 @@ Type: `bool`
 
 Default: `false`
 
-### <a name="input_kv_mount_path"></a> [kv\_mount\_path](#input\_kv\_mount\_path)
+### kv_mount_path
 
 Description: (Optional) KVv2 mount path containing demonstration secrets.
 
@@ -175,7 +166,7 @@ Type: `string`
 
 Default: `"kvv2"`
 
-### <a name="input_secret_path_prefix"></a> [secret\_path\_prefix](#input\_secret\_path\_prefix)
+### secret_path_prefix
 
 Description: (Optional) Secret path prefix under KVv2 for role policies.
 
@@ -183,7 +174,7 @@ Type: `string`
 
 Default: `"demo"`
 
-### <a name="input_token_max_ttl"></a> [token\_max\_ttl](#input\_token\_max\_ttl)
+### token_max_ttl
 
 Description: (Optional) Maximum token TTL in seconds for Kubernetes auth roles.
 
@@ -191,7 +182,7 @@ Type: `number`
 
 Default: `3600`
 
-### <a name="input_token_ttl"></a> [token\_ttl](#input\_token\_ttl)
+### token_ttl
 
 Description: (Optional) Default token TTL in seconds for Kubernetes auth roles.
 
@@ -199,7 +190,7 @@ Type: `number`
 
 Default: `1200`
 
-### <a name="input_vso_role_name"></a> [vso\_role\_name](#input\_vso\_role\_name)
+### vso_role_name
 
 Description: (Optional) Vault Kubernetes auth role name for VSO workloads.
 
@@ -211,18 +202,18 @@ Default: `"vso-role"`
 
 The following outputs are exported:
 
-### <a name="output_auth_path"></a> [auth\_path](#output\_auth\_path)
+### auth_path
 
 Description: Kubernetes auth backend path configured in Vault.
 
-### <a name="output_csi_role_name"></a> [csi\_role\_name](#output\_csi\_role\_name)
+### csi_role_name
 
 Description: CSI Vault role name when enabled.
 
-### <a name="output_kv_mount_path"></a> [kv\_mount\_path](#output\_kv\_mount\_path)
+### kv_mount_path
 
 Description: KVv2 mount path used by Vault policies.
 
-### <a name="output_vso_role_name"></a> [vso\_role\_name](#output\_vso\_role\_name)
+### vso_role_name
 
 Description: VSO Vault role name.

@@ -1,4 +1,3 @@
-
 variable "cluster_certificate_authority_data" {
   description = "(Required) Base64-encoded cluster certificate authority data."
   type        = string
@@ -39,12 +38,6 @@ variable "cluster_version" {
   }
 }
 
-variable "oidc_binding_id" {
-  description = "(Optional) OIDC binding identifier used for component dependency ordering."
-  type        = string
-  default     = ""
-}
-
 variable "oidc_provider_arn" {
   description = "(Required) OIDC provider ARN associated with the EKS cluster."
   type        = string
@@ -63,4 +56,10 @@ variable "vpc_id" {
     condition     = can(regex("^vpc-[a-z0-9]+$", var.vpc_id))
     error_message = "The `vpc_id` variable must be a valid VPC identifier."
   }
+}
+
+variable "oidc_binding_id" {
+  description = "(Optional) OIDC binding identifier used for component dependency ordering."
+  type        = string
+  default     = ""
 }

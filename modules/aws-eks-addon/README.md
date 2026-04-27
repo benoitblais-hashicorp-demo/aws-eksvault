@@ -47,67 +47,61 @@ module "eks_addons" {
 
 The following requirements are needed by this module:
 
-- <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (>= 1.0.0)
+- terraform (~> 1.14)
 
-## Providers
+- aws (~> 6.28)
 
-No providers.
+- helm (~> 2.12)
+
+- kubernetes (~> 2.25)
+
+- time (~> 0.1)
 
 ## Modules
 
 The following Modules are called:
 
-### <a name="module_eks_blueprints_addons"></a> [eks\_blueprints\_addons](#module\_eks\_blueprints\_addons)
+### eks\_blueprints\_addons
 
 Source: aws-ia/eks-blueprints-addons/aws
 
-Version: 1.1
-
-## Resources
-
-No resources.
+Version: ~> 1.23
 
 ## Required Inputs
 
 The following input variables are required:
 
-### <a name="input_cluster_certificate_authority_data"></a> [cluster\_certificate\_authority\_data](#input\_cluster\_certificate\_authority\_data)
+### cluster\_certificate\_authority\_data
 
 Description: (Required) Base64-encoded cluster certificate authority data.
 
 Type: `string`
 
-### <a name="input_cluster_endpoint"></a> [cluster\_endpoint](#input\_cluster\_endpoint)
+### cluster\_endpoint
 
 Description: (Required) Kubernetes API server endpoint URL.
 
 Type: `string`
 
-### <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name)
+### cluster\_name
 
 Description: (Required) EKS cluster name.
 
 Type: `string`
 
-### <a name="input_cluster_version"></a> [cluster\_version](#input\_cluster\_version)
+### cluster\_version
 
 Description: (Required) Kubernetes version used by the EKS cluster.
 
 Type: `string`
 
-### <a name="input_oidc_binding_id"></a> [oidc\_binding\_id](#input\_oidc\_binding\_id)
-
-Description: (Required) OIDC binding identifier used for component dependency ordering.
-
-Type: `string`
-
-### <a name="input_oidc_provider_arn"></a> [oidc\_provider\_arn](#input\_oidc\_provider\_arn)
+### oidc\_provider\_arn
 
 Description: (Required) OIDC provider ARN associated with the EKS cluster.
 
 Type: `string`
 
-### <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id)
+### vpc\_id
 
 Description: (Required) VPC identifier where EKS resources are deployed.
 
@@ -115,20 +109,28 @@ Type: `string`
 
 ## Optional Inputs
 
-No optional inputs.
+The following input variables are optional (have default values):
+
+### oidc\_binding\_id
+
+Description: (Optional) OIDC binding identifier used for component dependency ordering.
+
+Type: `string`
+
+Default: `""`
 
 ## Outputs
 
 The following outputs are exported:
 
-### <a name="output_argo_workflows"></a> [argo\_workflows](#output\_argo\_workflows)
+### argo\_workflows
 
 Description: Map of attributes for the Argo Workflows Helm release.
 
-### <a name="output_aws_load_balancer_controller"></a> [aws\_load\_balancer\_controller](#output\_aws\_load\_balancer\_controller)
+### aws\_load\_balancer\_controller
 
 Description: Map of attributes for the AWS Load Balancer Controller Helm release and IRSA resources.
 
-### <a name="output_eks_addons"></a> [eks\_addons](#output\_eks\_addons)
+### eks\_addons
 
 Description: Map of attributes for enabled EKS add-ons.

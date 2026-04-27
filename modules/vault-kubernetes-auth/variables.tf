@@ -38,6 +38,27 @@ variable "cluster_name" {
   }
 }
 
+variable "token_reviewer_jwt" {
+  description = "(Required) JWT token used by Vault to call Kubernetes TokenReview API."
+  type        = string
+  sensitive   = true
+
+  validation {
+    condition     = trimspace(var.token_reviewer_jwt) != ""
+    error_message = "The `token_reviewer_jwt` variable must not be empty."
+  }
+}
+
+variable "vso_namespace" {
+  description = "(Required) Namespace containing Vault Secrets Operator workloads."
+  type        = string
+}
+
+variable "vso_service_account_name" {
+  description = "(Required) Service account name bound to the VSO Vault role."
+  type        = string
+}
+
 variable "csi_role_name" {
   description = "(Optional) Vault Kubernetes auth role name for CSI workloads."
   type        = string
@@ -80,35 +101,14 @@ variable "token_max_ttl" {
   default     = 3600
 }
 
-variable "token_reviewer_jwt" {
-  description = "(Required) JWT token used by Vault to call Kubernetes TokenReview API."
-  type        = string
-  sensitive   = true
-
-  validation {
-    condition     = trimspace(var.token_reviewer_jwt) != ""
-    error_message = "The `token_reviewer_jwt` variable must not be empty."
-  }
-}
-
 variable "token_ttl" {
   description = "(Optional) Default token TTL in seconds for Kubernetes auth roles."
   type        = number
   default     = 1200
 }
 
-variable "vso_namespace" {
-  description = "(Required) Namespace containing Vault Secrets Operator workloads."
-  type        = string
-}
-
 variable "vso_role_name" {
   description = "(Optional) Vault Kubernetes auth role name for VSO workloads."
   type        = string
   default     = "vso-role"
-}
-
-variable "vso_service_account_name" {
-  description = "(Required) Service account name bound to the VSO Vault role."
-  type        = string
 }

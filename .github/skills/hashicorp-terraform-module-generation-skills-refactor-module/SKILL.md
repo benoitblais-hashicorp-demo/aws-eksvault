@@ -1,5 +1,5 @@
 ---
-name: refactor-module
+name: hashicorp-terraform-module-generation-skills-refactor-module
 description: Transform monolithic Terraform configurations into reusable, maintainable modules following HashiCorp's module design principles and community best practices.
 metadata:
   copyright: Copyright IBM Corp. 2026
@@ -371,7 +371,7 @@ module "vpc" {
 
 ## Examples
 
-See [examples/](./examples/) directory for complete usage examples.
+See examples directory for complete usage examples.
 ```
 
 ### 6. Testing

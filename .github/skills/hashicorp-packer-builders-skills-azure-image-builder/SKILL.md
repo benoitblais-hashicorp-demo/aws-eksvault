@@ -1,5 +1,5 @@
 ---
-name: azure-image-builder
+name: hashicorp-packer-builders-skills-azure-image-builder
 description: Build Azure managed images and Azure Compute Gallery images with Packer. Use when creating custom images for Azure VMs.
 ---
 
@@ -179,3 +179,4 @@ packer build .
 
 - [Azure ARM Builder](https://developer.hashicorp.com/packer/integrations/hashicorp/azure/latest/components/builder/arm)
 - [Azure Compute Gallery](https://learn.microsoft.com/en-us/azure/virtual-machines/azure-compute-gallery)
+

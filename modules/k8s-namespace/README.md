@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD024 -->
 # Kubernetes Namespace Terraform module
 
 This module creates a Kubernetes namespace and applies metadata labels.
@@ -37,31 +38,27 @@ module "k8s_namespace" {
 
 The following requirements are needed by this module:
 
-- <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (>= 1.0.0)
+- terraform (~> 1.14)
 
-- <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) (~> 2.25)
+- kubernetes (~> 2.25)
 
 ## Providers
 
 The following providers are used by this module:
 
-- <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) (~> 2.25)
-
-## Modules
-
-No modules.
+- kubernetes (~> 2.25)
 
 ## Resources
 
 The following resources are used by this module:
 
-- [kubernetes_namespace_v1.example](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace_v1) (resource)
+- [kubernetes_namespace_v1.target](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace_v1) (resource)
 
 ## Required Inputs
 
 The following input variables are required:
 
-### <a name="input_namespace"></a> [namespace](#input\_namespace)
+### namespace
 
 Description: (Required) Namespace name to create.
 
@@ -71,24 +68,18 @@ Type: `string`
 
 The following input variables are optional (have default values):
 
-### <a name="input_labels"></a> [labels](#input\_labels)
+### labels
 
 Description: (Optional) Labels applied to the namespace metadata.
 
-Type: `any`
+Type: `map(string)`
 
-Default:
-
-```json
-{
-  "mylabel": "example-label"
-}
-```
+Default: `{}`
 
 ## Outputs
 
 The following outputs are exported:
 
-### <a name="output_namespace"></a> [namespace](#output\_namespace)
+### namespace
 
 Description: Name of the created Kubernetes namespace.
