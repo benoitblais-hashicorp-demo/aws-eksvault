@@ -8,11 +8,10 @@ module "eks_blueprints_addons" {
   source  = "aws-ia/eks-blueprints-addons/aws"
   version = "~> 1.23"
 
-  cluster_name          = var.cluster_name
-  cluster_endpoint      = var.cluster_endpoint
-  cluster_version       = var.cluster_version
-  oidc_provider_arn     = var.oidc_provider_arn
-  enable_argo_workflows = false
+  cluster_name      = var.cluster_name
+  cluster_endpoint  = var.cluster_endpoint
+  cluster_version   = var.cluster_version
+  oidc_provider_arn = var.oidc_provider_arn
 
   # Keep stack-level dependency inputs consumed to preserve ordering semantics.
   create_delay_dependencies = compact([
@@ -64,6 +63,20 @@ module "eks_blueprints_addons" {
     }
 
   }
+
+  tags = local.tags
+}
+
+module "eks_blueprints_addons_helm" {
+  source  = "aws-ia/eks-blueprints-addons/aws"
+  version = "~> 1.23"
+
+  cluster_name      = var.cluster_name
+  cluster_endpoint  = var.cluster_endpoint
+  cluster_version   = var.cluster_version
+  oidc_provider_arn = var.oidc_provider_arn
+
+  depends_on = [module.eks_blueprints_addons]
 
   # Enable Fargate logging
   enable_fargate_fluentbit = false
