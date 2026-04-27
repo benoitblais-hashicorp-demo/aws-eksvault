@@ -18,58 +18,6 @@ resource "kubernetes_config_map_v1" "vault_connection" {
   }
 }
 
-resource "kubernetes_service_account_v1" "cleanup" {
-  metadata {
-    name      = "pdcc-cleanup"
-    namespace = var.namespace
-    labels    = local.labels
-  }
-}
-
-resource "kubernetes_role_binding_v1" "cleanup" {
-  metadata {
-    name      = "pdcc-cleanup"
-    namespace = var.namespace
-    labels    = local.labels
-  }
-  role_ref {
-    api_group = "rbac.authorization.k8s.io"
-    kind      = "ClusterRole"
-    name      = "admin"
-  }
-  subject {
-    kind      = "ServiceAccount"
-    name      = kubernetes_service_account_v1.cleanup.metadata[0].name
-    namespace = var.namespace
-  }
-}
-
-resource "kubernetes_job_v1" "cleanup" {
-  metadata {
-    name      = "pdcc-cleanup"
-    namespace = var.namespace
-    labels    = local.labels
-  }
-  spec {
-    template {
-      metadata {
-        labels = local.labels
-      }
-      spec {
-        service_account_name = kubernetes_service_account_v1.cleanup.metadata[0].name
-        container {
-          name    = "kubectl"
-          image   = "bitnami/kubectl:latest"
-          command = ["kubectl", "delete", "job", "pdcc-vault-secrets-operator", "--namespace", var.namespace, "--ignore-not-found"]
-        }
-        restart_policy = "Never"
-      }
-    }
-    backoff_limit = 1
-  }
-  wait_for_completion = true
-}
-
 resource "helm_release" "vault_secrets_operator" {
   name             = "vault-secrets-operator"
   repository       = "https://helm.releases.hashicorp.com"
@@ -79,8 +27,6 @@ resource "helm_release" "vault_secrets_operator" {
   skip_crds        = false
   wait             = true
   timeout          = 600
-
-  depends_on = [kubernetes_job_v1.cleanup]
 
   values = [yamlencode({
     installCRDs = true
