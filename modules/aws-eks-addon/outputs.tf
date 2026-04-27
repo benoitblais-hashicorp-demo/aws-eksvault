@@ -1,11 +1,11 @@
 output "argo_workflows" {
   description = "Map of attributes for the Argo Workflows Helm release."
-  value       = module.eks_blueprints_addons.argo_workflows
+  value       = module.eks_blueprints_addons_helm.argo_workflows
 }
 
 output "aws_load_balancer_controller" {
   description = "Map of attributes for the AWS Load Balancer Controller Helm release and IRSA resources."
-  value       = module.eks_blueprints_addons.aws_load_balancer_controller
+  value       = module.eks_blueprints_addons_helm.aws_load_balancer_controller
 }
 
 output "eks_addons" {
