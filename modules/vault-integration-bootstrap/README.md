@@ -1,4 +1,5 @@
 <!-- markdownlint-disable MD024 -->
+<!-- markdownlint-disable MD024 -->
 # Vault Integration Bootstrap Terraform module
 
 This module bootstraps Kubernetes-side components for Vault integration demonstrations, including VSO and optional CSI driver support.
@@ -142,10 +143,9 @@ The following requirements are needed by this module:
 
 The following resources are used by this module:
 
-- [helm_release.secrets_store_csi_driver](<https://registry.terraform.io/providers/hashicorp/helm/latest/docs>/resources/release) (resource)
-- [helm_release.vault_secrets_operator](<https://registry.terraform.io/providers/hashicorp/helm/latest/docs>/resources/release) (resource)
-- [kubernetes_config_map_v1.vault_connection](<https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs>/resources/config_map_v1) (resource)
-- [kubernetes_namespace_v1.vault_integration](<https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs>/resources/namespace_v1) (resource)
+- [helm_release.secrets_store_csi_driver](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) (resource)
+- [helm_release.vault_secrets_operator](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) (resource)
+- [kubernetes_config_map_v1.vault_connection](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/config_map_v1) (resource)
 
 ## Required Inputs
 
