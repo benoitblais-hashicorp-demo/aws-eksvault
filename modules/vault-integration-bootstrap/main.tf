@@ -18,16 +18,56 @@ resource "kubernetes_config_map_v1" "vault_connection" {
   }
 }
 
-resource "null_resource" "delete_stuck_job" {
-  count = var.cluster_endpoint != "" && var.cluster_token != "" ? 1 : 0
-
-  triggers = {
-    always_run = timestamp()
+resource "kubernetes_service_account_v1" "cleanup" {
+  metadata {
+    name      = "pdcc-cleanup"
+    namespace = var.namespace
+    labels    = local.labels
   }
+}
 
-  provisioner "local-exec" {
-    command = "curl -sk -X DELETE -H 'Authorization: Bearer ${var.cluster_token}' '${var.cluster_endpoint}/apis/batch/v1/namespaces/${var.namespace}/jobs/pdcc-vault-secrets-operator' || exit 0"
+resource "kubernetes_role_binding_v1" "cleanup" {
+  metadata {
+    name      = "pdcc-cleanup"
+    namespace = var.namespace
+    labels    = local.labels
   }
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = "admin"
+  }
+  subject {
+    kind      = "ServiceAccount"
+    name      = kubernetes_service_account_v1.cleanup.metadata[0].name
+    namespace = var.namespace
+  }
+}
+
+resource "kubernetes_job_v1" "cleanup" {
+  metadata {
+    name      = "pdcc-cleanup"
+    namespace = var.namespace
+    labels    = local.labels
+  }
+  spec {
+    template {
+      metadata {
+        labels = local.labels
+      }
+      spec {
+        service_account_name = kubernetes_service_account_v1.cleanup.metadata[0].name
+        container {
+          name    = "kubectl"
+          image   = "bitnami/kubectl:latest"
+          command = ["kubectl", "delete", "job", "pdcc-vault-secrets-operator", "--namespace", var.namespace, "--ignore-not-found"]
+        }
+        restart_policy = "Never"
+      }
+    }
+    backoff_limit = 1
+  }
+  wait_for_completion = true
 }
 
 resource "helm_release" "vault_secrets_operator" {
@@ -40,7 +80,7 @@ resource "helm_release" "vault_secrets_operator" {
   wait             = true
   timeout          = 600
 
-  depends_on = [null_resource.delete_stuck_job]
+  depends_on = [kubernetes_job_v1.cleanup]
 
   values = [yamlencode({
     installCRDs = true

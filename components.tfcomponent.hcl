@@ -250,8 +250,6 @@ component "vault-integration-vso" {
 
   inputs = {
     cluster_name            = component.eks_vso.cluster_name
-    cluster_endpoint        = component.eks_vso.cluster_endpoint
-    cluster_token           = var.k8s_identity_token
     integration_mode        = "vso"
     namespace               = component.k8s-namespace-vso.namespace
     vault_address           = var.vault_address
@@ -261,7 +259,6 @@ component "vault-integration-vso" {
   providers = {
     kubernetes = provider.kubernetes.vso_oidc_configurations
     helm       = provider.helm.vso_oidc_configurations
-    null       = provider.null.this
   }
 
 }
@@ -274,8 +271,6 @@ component "vault-integration-vso-csi" {
 
   inputs = {
     cluster_name            = component.eks_vso_csi.cluster_name
-    cluster_endpoint        = component.eks_vso_csi.cluster_endpoint
-    cluster_token           = var.k8s_identity_token
     integration_mode        = "vso_csi"
     namespace               = component.k8s-namespace-vso-csi.namespace
     vault_address           = var.vault_address
@@ -285,7 +280,6 @@ component "vault-integration-vso-csi" {
   providers = {
     kubernetes = provider.kubernetes.vso_csi_oidc_configurations
     helm       = provider.helm.vso_csi_oidc_configurations
-    null       = provider.null.this
   }
 
 }
