@@ -251,7 +251,7 @@ component "vault-integration-vso" {
   inputs = {
     cluster_name            = component.eks_vso.cluster_name
     integration_mode        = "vso"
-    namespace               = var.namespace_vso
+    namespace               = component.k8s-namespace-vso.namespace
     vault_address           = var.vault_address
     cluster_readiness_token = component.k8s-rbac-vso.oidc_binding_id
   }
@@ -272,7 +272,7 @@ component "vault-integration-vso-csi" {
   inputs = {
     cluster_name            = component.eks_vso_csi.cluster_name
     integration_mode        = "vso_csi"
-    namespace               = var.namespace_vso_csi
+    namespace               = component.k8s-namespace-vso-csi.namespace
     vault_address           = var.vault_address
     cluster_readiness_token = component.k8s-rbac-vso-csi.oidc_binding_id
   }
@@ -314,7 +314,7 @@ component "vault-config-vso" {
     auth_path                          = "${var.vault_kubernetes_auth_path_vso}-${each.value}"
     kv_mount_path                      = var.vault_kv_mount_path
     secret_path_prefix                 = "${var.vault_secret_path_prefix}/${component.eks_vso.cluster_name}"
-    vso_namespace                      = var.namespace_vso
+    vso_namespace                      = component.k8s-namespace-vso.namespace
     vso_service_account_name           = var.vso_service_account_name
     enable_csi_role                    = false
   }
@@ -339,7 +339,7 @@ component "vault-config-vso-csi" {
     auth_path                          = "${var.vault_kubernetes_auth_path_vso_csi}-${each.value}"
     kv_mount_path                      = var.vault_kv_mount_path
     secret_path_prefix                 = "${var.vault_secret_path_prefix}/${component.eks_vso_csi.cluster_name}"
-    vso_namespace                      = var.namespace_vso_csi
+    vso_namespace                      = component.k8s-namespace-vso-csi.namespace
     vso_service_account_name           = var.vso_service_account_name
     enable_csi_role                    = true
     csi_service_account_name           = var.csi_service_account_name

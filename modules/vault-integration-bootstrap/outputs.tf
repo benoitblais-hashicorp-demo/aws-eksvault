@@ -5,7 +5,7 @@ output "integration_mode" {
 
 output "namespace" {
   description = "Namespace where Vault integration components are deployed."
-  value       = kubernetes_namespace_v1.vault_integration.metadata[0].name
+  value       = var.namespace
 }
 
 output "vault_address" {

@@ -6,17 +6,10 @@ locals {
   }
 }
 
-resource "kubernetes_namespace_v1" "vault_integration" {
-  metadata {
-    name   = var.namespace
-    labels = local.labels
-  }
-}
-
 resource "kubernetes_config_map_v1" "vault_connection" {
   metadata {
     name      = "vault-connection"
-    namespace = kubernetes_namespace_v1.vault_integration.metadata[0].name
+    namespace = var.namespace
     labels    = local.labels
   }
 
@@ -29,7 +22,7 @@ resource "helm_release" "vault_secrets_operator" {
   name             = "vault-secrets-operator"
   repository       = "https://helm.releases.hashicorp.com"
   chart            = "vault-secrets-operator"
-  namespace        = kubernetes_namespace_v1.vault_integration.metadata[0].name
+  namespace        = var.namespace
   create_namespace = false
   skip_crds        = false
   wait             = true
