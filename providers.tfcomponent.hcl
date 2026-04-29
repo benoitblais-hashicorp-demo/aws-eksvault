@@ -63,42 +63,42 @@ provider "aws" "configurations" {
 
 provider "kubernetes" "vso_configurations" {
   config { 
-    host                   = component.eks_vso.cluster_endpoint
-    cluster_ca_certificate = base64decode(component.eks_vso.cluster_certificate_authority_data)
-    token                  = component.eks_vso.eks_token
+    host                   = try(component.eks_vso.cluster_endpoint, "https://kubernetes.default.svc.cluster.local")
+    cluster_ca_certificate = base64decode(try(component.eks_vso.cluster_certificate_authority_data, "YmFzZTY0ZWNpeA=="))
+    token                  = try(component.eks_vso.eks_token, "")
   }
 }
 
 provider "kubernetes" "vso_csi_configurations" {
   config { 
-    host                   = component.eks_vso_csi.cluster_endpoint
-    cluster_ca_certificate = base64decode(component.eks_vso_csi.cluster_certificate_authority_data)
-    token                  = component.eks_vso_csi.eks_token
+    host                   = try(component.eks_vso_csi.cluster_endpoint, "https://kubernetes.default.svc.cluster.local")
+    cluster_ca_certificate = base64decode(try(component.eks_vso_csi.cluster_certificate_authority_data, "YmFzZTY0ZWNpeA=="))
+    token                  = try(component.eks_vso_csi.eks_token, "")
   }
 }
 
 provider "kubernetes" "vso_oidc_configurations" {
   config {
-    host                   = component.eks_vso.cluster_endpoint
-    cluster_ca_certificate = base64decode(component.eks_vso.cluster_certificate_authority_data)
-    token                  = var.k8s_identity_token
+    host                   = try(component.eks_vso.cluster_endpoint, "https://kubernetes.default.svc.cluster.local")
+    cluster_ca_certificate = base64decode(try(component.eks_vso.cluster_certificate_authority_data, "YmFzZTY0ZWNpeA=="))
+    token                  = try(var.k8s_identity_token, "")
   }
 }
 
 provider "kubernetes" "vso_csi_oidc_configurations" {
   config {
-    host                   = component.eks_vso_csi.cluster_endpoint
-    cluster_ca_certificate = base64decode(component.eks_vso_csi.cluster_certificate_authority_data)
-    token                  = var.k8s_identity_token
+    host                   = try(component.eks_vso_csi.cluster_endpoint, "https://kubernetes.default.svc.cluster.local")
+    cluster_ca_certificate = base64decode(try(component.eks_vso_csi.cluster_certificate_authority_data, "YmFzZTY0ZWNpeA=="))
+    token                  = try(var.k8s_identity_token, "")
   }
 }
 
 provider "helm" "vso_oidc_configurations" {
   config {
     kubernetes {
-      host                   = component.eks_vso.cluster_endpoint
-      cluster_ca_certificate = base64decode(component.eks_vso.cluster_certificate_authority_data)
-      token                  = var.k8s_identity_token
+      host                   = try(component.eks_vso.cluster_endpoint, "https://kubernetes.default.svc.cluster.local")
+      cluster_ca_certificate = base64decode(try(component.eks_vso.cluster_certificate_authority_data, "YmFzZTY0ZWNpeA=="))
+      token                  = try(var.k8s_identity_token, "")
     }
   }
 }
@@ -106,12 +106,11 @@ provider "helm" "vso_oidc_configurations" {
 provider "helm" "vso_csi_oidc_configurations" {
   config {
     kubernetes {
-      host                   = component.eks_vso_csi.cluster_endpoint
-      cluster_ca_certificate = base64decode(component.eks_vso_csi.cluster_certificate_authority_data)
-      token                  = var.k8s_identity_token
+      host                   = try(component.eks_vso_csi.cluster_endpoint, "https://kubernetes.default.svc.cluster.local")
+      cluster_ca_certificate = base64decode(try(component.eks_vso_csi.cluster_certificate_authority_data, "YmFzZTY0ZWNpeA=="))
+      token                  = try(var.k8s_identity_token, "")
     }
   }
-
 }
 
 provider "cloudinit" "this" {}
