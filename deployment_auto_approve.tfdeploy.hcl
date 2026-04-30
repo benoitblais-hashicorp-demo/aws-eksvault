@@ -1,4 +1,4 @@
-deployment_auto_approve "development_changes_can_be_auto_approved" {
+deployment_auto_approve "dev_fresh_changes_can_be_auto_approved" {
 
   check {
     condition = context.plan.changes.remove == 0
@@ -7,8 +7,8 @@ deployment_auto_approve "development_changes_can_be_auto_approved" {
 
 }
 
-deployment_group "development" {
+deployment_group "dev_fresh" {
   auto_approve_checks = [
-    "development_changes_can_be_auto_approved",
+    "dev_fresh_changes_can_be_auto_approved",
   ]
 }

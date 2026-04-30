@@ -10,7 +10,7 @@ identity_token "vault" {
   audience = ["vault.workload.identity"]
 }
 
-deployment "development" {
+deployment "dev_fresh" {
   destroy = false # set to true to destroy this deployment
   inputs = {
     aws_identity_token   = identity_token.aws.jwt
@@ -18,6 +18,6 @@ deployment "development" {
     vault_identity_token = identity_token.vault.jwt
   }
 
-  deployment_group = deployment_group.development
+  deployment_group = deployment_group.dev_fresh
 
 }
